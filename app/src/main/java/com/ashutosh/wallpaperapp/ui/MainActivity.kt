@@ -4,30 +4,32 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.ashutosh.wallpaperapp.R
+import com.ashutosh.wallpaperapp.databinding.ActivityMainBinding
 import com.ashutosh.wallpaperapp.network.ApiService
+import com.ashutosh.wallpaperapp.viewmodel.HomeViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var binding: ActivityMainBinding
+
+    private val homeViewModel: HomeViewModel by viewModels()
+//    lateinit var adapter: ImagesAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    binding = ActivityMainBinding.inflate(layoutInflater)
+    setContentView(binding.root)
 
-        val apiService = ApiService.getInstance()
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = apiService.getWallpapers()
-            Log.d("TAG", "onCreate: $response")
-            if (response.isSuccessful){
-                val wallpaperPageModel = response.body()
-                Log.d("TAG", "onCreate: $wallpaperPageModel")
-                withContext(Dispatchers.Main){
-                    Toast.makeText(this@MainActivity, "$wallpaperPageModel", Toast.LENGTH_SHORT).show()
-                    val list = wallpaperPageModel!!.data
-                }
-            }
-        }
+    homeViewModel.liveIsLoading.observe(this){
+        Toast.makeText(this, "${homeViewModel.list}", Toast.LENGTH_SHORT).show()
+        binding.textView.text = homeViewModel.list.toString()
+    }
+
+        homeViewModel.getWallpaper()
     }
 }
