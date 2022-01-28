@@ -22,6 +22,7 @@ class HomeViewModel : ViewModel() {
     fun getWallpaper() {
         if (list.isNotEmpty()) return
         liveIsLoading.value = true
+
         CoroutineScope(Dispatchers.IO).launch {
             val response = wallpapersRepository.getWallpapers()
             Log.d("TAG", "onCreate: $response")
