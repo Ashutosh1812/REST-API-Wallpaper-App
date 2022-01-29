@@ -10,7 +10,7 @@ import com.ashutosh.wallpaperapp.databinding.ItemLayoutImageBinding
 import com.ashutosh.wallpaperapp.models.WallpaperModel
 import com.bumptech.glide.Glide
 
-class WallpapersAdapter(private val context:Context, private val list: List<WallpaperModel>): RecyclerView.Adapter<WallpapersAdapter.ItemViewHolder>() {
+class WallpapersAdapter( val context:Context, private val list: List<WallpaperModel>): RecyclerView.Adapter<WallpapersAdapter.ItemViewHolder>() {
     class ItemViewHolder(val binding: ItemLayoutImageBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -22,7 +22,7 @@ class WallpapersAdapter(private val context:Context, private val list: List<Wall
         val wallpaperModelItem = list[position]
         Glide.with(context).load(wallpaperModelItem.urls.small).into(holder.binding.imageView)
         Log.d("TAG", "onBindViewHolder->: ${wallpaperModelItem.urls.small}")
-        Toast.makeText(context, wallpaperModelItem.urls.small, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, wallpaperModelItem.urls.small, Toast.LENGTH_SHORT).show()
     }
 
     override fun getItemCount(): Int {

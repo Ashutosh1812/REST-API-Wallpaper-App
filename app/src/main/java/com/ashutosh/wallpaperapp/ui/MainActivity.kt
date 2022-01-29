@@ -6,11 +6,15 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ashutosh.wallpaperapp.R
+import com.ashutosh.wallpaperapp.adapter.ViewPagerAdapter
 import com.ashutosh.wallpaperapp.adapter.WallpapersAdapter
 import com.ashutosh.wallpaperapp.databinding.ActivityMainBinding
 import com.ashutosh.wallpaperapp.network.ApiService
 import com.ashutosh.wallpaperapp.viewmodel.HomeViewModel
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,25 +24,31 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-    private val homeViewModel: HomeViewModel by viewModels()
 
-       lateinit var adapter: WallpapersAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupRecyclerView()
-        homeViewModel.liveIsLoading.observe(this) {
-            Toast.makeText(this, "${homeViewModel.list}", Toast.LENGTH_SHORT).show()
-            adapter.notifyDataSetChanged()
-        }
 
-        homeViewModel.getWallpaper()
+        setupFragments()
     }
 
-    private fun setupRecyclerView() {
-        binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
-        adapter = WallpapersAdapter(this, homeViewModel.list)
-        binding.recyclerView.adapter = adapter
+
+    private fun setupFragments(){
+
+        val adapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
+        binding.viewPager2.adapter = adapter
+
+        TabLayoutMediator(binding.tabLayout, binding.viewPager2){tab,position->
+            when(position){
+                0-> tab.text = "Home"
+                1-> tab.text = "Category"
+                2-> tab.text = "Favorite"
+            }
+
+        }.attach()
+
     }
+
+
 }
