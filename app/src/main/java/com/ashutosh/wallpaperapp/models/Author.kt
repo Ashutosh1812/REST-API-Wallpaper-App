@@ -1,4 +1,4 @@
-package com.ashutosh.wallpaperapp.newModels
+package com.ashutosh.wallpaperapp.models
 
 
 import com.google.gson.annotations.SerializedName
