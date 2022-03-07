@@ -9,4 +9,5 @@ class WallpapersRepository {
     suspend fun getWallpapers():Response<WallpaperPageModel>{
         return apiService.getWallpapers()
     }
+
 }

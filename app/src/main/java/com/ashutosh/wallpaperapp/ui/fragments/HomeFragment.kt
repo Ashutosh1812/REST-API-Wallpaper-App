@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.HorizontalScrollView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -66,8 +67,8 @@ class HomeFragment : Fragment() {
     private fun setupRecyclerView() {
 
 
-        val manager = GridLayoutManager(context, 2)
-
+        val manager = LinearLayoutManager(context)
+        manager.orientation = LinearLayoutManager.HORIZONTAL
         binding.recyclerView.layoutManager = manager
         adapter = WallpapersAdapter(requireContext().applicationContext, homeViewModel.list)
         binding.recyclerView.adapter = adapter

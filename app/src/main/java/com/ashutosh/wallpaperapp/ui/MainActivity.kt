@@ -2,33 +2,24 @@ package com.ashutosh.wallpaperapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.ashutosh.wallpaperapp.R
-import com.ashutosh.wallpaperapp.adapter.ViewPagerAdapter
-import com.ashutosh.wallpaperapp.adapter.WallpapersAdapter
 import com.ashutosh.wallpaperapp.databinding.ActivityMainBinding
-import com.ashutosh.wallpaperapp.network.ApiService
-import com.ashutosh.wallpaperapp.viewmodel.HomeViewModel
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.ashutosh.wallpaperapp.ui.fragments.CategoryFragment
+import com.ashutosh.wallpaperapp.ui.fragments.FavoritesFragment
+import com.ashutosh.wallpaperapp.ui.fragments.HomeFragment
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
+    val fragement = HomeFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        openMainFragment()
+//        supportActionBar?.hide()
 
         setupFragments()
     }
@@ -36,8 +27,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupFragments(){
 
-        val adapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
+        /*val adapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
         binding.viewPager2.adapter = adapter
+
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager2){tab,position->
             when(position){
@@ -46,9 +38,42 @@ class MainActivity : AppCompatActivity() {
                 2-> tab.text = "Favorite"
             }
 
-        }.attach()
+        }.attach()*/
+        binding.menuBottom.setItemSelected(R.id.home)
+        binding.menuBottom.setOnItemSelectedListener {
+            when(it){
+
+                R.id.home -> {
+                    openMainFragment()
+                }
+                R.id.category -> {
+                    val categoryFragment = CategoryFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.frame_layout, categoryFragment).commit()
+
+                }
+                R.id.favorites -> {
+                    val favoriteFragment = FavoritesFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.frame_layout, favoriteFragment).commit()
+
+                }
+                R.id.settings -> {
+                    val profileFragment = CategoryFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.frame_layout, profileFragment).commit()
+                    }
+            }
+
+            }
+        }
+
+    private fun openMainFragment() {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frame_layout, fragement)
+        transaction.commit()
+    }
 
     }
 
 
-}

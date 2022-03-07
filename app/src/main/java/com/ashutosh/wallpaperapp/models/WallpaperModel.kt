@@ -33,7 +33,7 @@ data class WallpaperModel(
     @SerializedName("updated_at")
     val updatedAt: String,
     @SerializedName("urls")
-    val urls: com.ashutosh.wallpaperapp.newModels.Urls,
+    val urls: Urls,
     @SerializedName("wall_id")
     val wallId: Int
 

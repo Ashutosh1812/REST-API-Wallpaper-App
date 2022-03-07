@@ -62,4 +62,8 @@ dependencies {
 //    Coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2"
+
+//    implementation 'com.github.ismaeldivita:chip-navigation-bar:1.4.0'
+    implementation 'com.android.volley:volley:1.0.0'
+    implementation 'com.ismaeldivita.chipnavigation:chip-navigation-bar:1.2.0'
 }
