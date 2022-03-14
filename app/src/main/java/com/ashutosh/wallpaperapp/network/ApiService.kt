@@ -1,6 +1,8 @@
 package com.ashutosh.wallpaperapp.network
 
 
+import com.ashutosh.wallpaperapp.models.CategoriesModel
+import com.ashutosh.wallpaperapp.models.CategoriesModelItem
 import com.ashutosh.wallpaperapp.models.CategoryModel
 import com.ashutosh.wallpaperapp.models.WallpaperPageModel
 import retrofit2.Response
@@ -68,7 +70,9 @@ interface ApiService {
         @Query("page") page: Int = 1
     ): Response<WallpaperPageModel>
 
-    @GET("category")
-    suspend fun getCategories(): Response<List<CategoryModel>>
+
+    @GET("list/category")
+    suspend fun getCategory(
+    ): Response<List<CategoriesModelItem>>
 
 }

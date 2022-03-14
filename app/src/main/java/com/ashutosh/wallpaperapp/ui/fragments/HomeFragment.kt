@@ -11,19 +11,21 @@ import android.view.ViewGroup
 import android.widget.HorizontalScrollView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ashutosh.wallpaperapp.R
 import com.ashutosh.wallpaperapp.adapter.WallpapersAdapter
 import com.ashutosh.wallpaperapp.databinding.FragmentHomeBinding
+import com.ashutosh.wallpaperapp.ui.fragments.sub_fragments.HorizontalListFragment
 import com.ashutosh.wallpaperapp.viewmodel.HomeViewModel
 
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
 
-    private val homeViewModel: HomeViewModel = HomeViewModel()
+    private val homeViewModel: HomeViewModel by viewModels()
 
     lateinit var adapter: WallpapersAdapter
 
@@ -31,6 +33,13 @@ class HomeFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val hlf = HorizontalListFragment().apply {
+            arguments = Bundle().apply {
+                putString("order_by", "newest")
+            }
+        }
+        val h = HorizontalListFragment.newInstance("", "")
 
         homeViewModel.liveIsLoading.observe(this) {
 //            Toast.makeText(this, "${homeViewModel.list}", Toast.LENGTH_SHORT).show()
@@ -51,6 +60,7 @@ class HomeFragment : Fragment() {
             }
         }
         homeViewModel.getWallpaper()
+        Toast.makeText(context,         homeViewModel.getCategory().toString(), Toast.LENGTH_SHORT).show()
     }
 
 

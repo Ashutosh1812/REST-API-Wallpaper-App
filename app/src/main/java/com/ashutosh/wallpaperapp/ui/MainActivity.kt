@@ -2,6 +2,7 @@ package com.ashutosh.wallpaperapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import com.ashutosh.wallpaperapp.R
 import com.ashutosh.wallpaperapp.databinding.ActivityMainBinding
 import com.ashutosh.wallpaperapp.ui.fragments.CategoryFragment
@@ -12,20 +13,21 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-    val fragement = HomeFragment()
+    var fragement : HomeFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        openMainFragment()
+        fragement = HomeFragment()
+        switchFragment(fragement)
 //        supportActionBar?.hide()
 
         setupFragments()
     }
 
 
-    private fun setupFragments(){
+    private fun setupFragments() {
 
         /*val adapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
         binding.viewPager2.adapter = adapter
@@ -41,39 +43,33 @@ class MainActivity : AppCompatActivity() {
         }.attach()*/
         binding.menuBottom.setItemSelected(R.id.home)
         binding.menuBottom.setOnItemSelectedListener {
-            when(it){
+            when (it) {
 
                 R.id.home -> {
-                    openMainFragment()
+                    switchFragment(fragement)
                 }
                 R.id.category -> {
-                    val categoryFragment = CategoryFragment()
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.frame_layout, categoryFragment).commit()
+                    switchFragment(CategoryFragment())
 
                 }
                 R.id.favorites -> {
-                    val favoriteFragment = FavoritesFragment()
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.frame_layout, favoriteFragment).commit()
+                    switchFragment(FavoritesFragment())
 
                 }
                 R.id.settings -> {
-                    val profileFragment = CategoryFragment()
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.frame_layout, profileFragment).commit()
-                    }
+                    switchFragment(CategoryFragment())
+                }
             }
 
-            }
         }
-
-    private fun openMainFragment() {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frame_layout, fragement)
-        transaction.commit()
+    }
+    private fun switchFragment(f:Fragment?){
+        f?.let {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, it).commit()
+        }
     }
 
-    }
+}
 
 
