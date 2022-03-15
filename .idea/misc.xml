@@ -7,13 +7,19 @@
         <entry key="..\:/Users/Ashutosh/Documents/GitHub/REST-API-Wallpaper-App/app/src/main/res/layout/activity_main.xml" value="0.1693840579710145" />
         <entry key="..\:/Users/Ashutosh/Documents/GitHub/REST-API-Wallpaper-App/app/src/main/res/layout/fragment_home.xml" value="0.17527173913043478" />
         <entry key="..\:/Users/Ashutosh/Documents/GitHub/REST-API-Wallpaper-App/app/src/main/res/layout/item_layout_image.xml" value="0.27291666666666664" />
+        <entry key="app/src/main/res/drawable/card.xml" value="0.238" />
         <entry key="app/src/main/res/layout-v28/fragment_home.xml" value="0.28125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2504528985507246" />
         <entry key="app/src/main/res/layout/activity_test.xml" value="0.28125" />
+        <entry key="app/src/main/res/layout/color_item_layout.xml" value="0.24954710144927536" />
+        <entry key="app/src/main/res/layout/color_layout.xml" value="0.24954710144927536" />
         <entry key="app/src/main/res/layout/fragment_category.xml" value="0.2504528985507246" />
         <entry key="app/src/main/res/layout/fragment_favorites.xml" value="0.2504528985507246" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_horizontal_category_list.xml" value="0.24954710144927536" />
+        <entry key="app/src/main/res/layout/fragment_horizontal_color_list.xml" value="0.24954710144927536" />
         <entry key="app/src/main/res/layout/fragment_horizontal_list.xml" value="0.24954710144927536" />
+        <entry key="app/src/main/res/layout/fragment_horizontal_wall_list.xml" value="0.24954710144927536" />
         <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.28125" />
         <entry key="app/src/main/res/layout/item_layout_image.xml" value="0.2504528985507246" />
         <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.6357421875" />

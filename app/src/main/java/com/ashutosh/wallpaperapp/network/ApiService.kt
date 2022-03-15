@@ -1,21 +1,17 @@
 package com.ashutosh.wallpaperapp.network
 
 
-import com.ashutosh.wallpaperapp.models.CategoriesModel
-import com.ashutosh.wallpaperapp.models.CategoriesModelItem
 import com.ashutosh.wallpaperapp.models.CategoryModel
+import com.ashutosh.wallpaperapp.models.ColorModel
 import com.ashutosh.wallpaperapp.models.WallpaperPageModel
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.Path
 import retrofit2.http.Query
-import okhttp3.OkHttpClient
-
-import okhttp3.Request
 
 
 interface ApiService {
@@ -48,31 +44,18 @@ interface ApiService {
 
     @GET("wall")
     suspend fun getWallpapers(
-        @Query("page") page: Int = 1
+        @Query("page") page: Int = 1,
+        @Query("order_by") orderBy: String = "newest",
+        @Query("s") search: String? = null,
+        @Query("category") category: String? = null,
+        @Query("color") color: String? = null,
     ): Response<WallpaperPageModel>
-
-    @GET("wall")
-    suspend fun searchWallpapers(
-        @Query("s") search: String,
-        @Query("page") page: Int = 1
-    ): Response<WallpaperPageModel>
-
-    @GET("{category}/wall")
-    suspend fun getWallByCategory(
-        @Path(value = "category", encoded = true) category: String,
-        @Query("page") page: Int = 1
-    ): Response<WallpaperPageModel>
-
-    @GET("{category}/wall")
-    suspend fun searchWallByCategory(
-        @Path(value = "category", encoded = true) category: String,
-        @Query("s") search: String,
-        @Query("page") page: Int = 1
-    ): Response<WallpaperPageModel>
-
 
     @GET("list/category")
     suspend fun getCategory(
-    ): Response<List<CategoriesModelItem>>
+    ): Response<List<CategoryModel>>
+    @GET("list/color")
+    suspend fun getColor(
+    ): Response<List<ColorModel>>
 
 }

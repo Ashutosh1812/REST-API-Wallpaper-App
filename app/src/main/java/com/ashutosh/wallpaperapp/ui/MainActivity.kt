@@ -1,7 +1,9 @@
 package com.ashutosh.wallpaperapp.ui
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.res.Resources
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.ashutosh.wallpaperapp.R
 import com.ashutosh.wallpaperapp.databinding.ActivityMainBinding
@@ -41,7 +43,12 @@ class MainActivity : AppCompatActivity() {
             }
 
         }.attach()*/
+        val resources: Resources = this.resources
+        val resourceId: Int = resources.getIdentifier("navigation_bar_height", "dimen", "android")
+
         binding.menuBottom.setItemSelected(R.id.home)
+
+        Toast.makeText(this, resources.getDimensionPixelSize(resourceId).toString()+ "fhgfhghgg", Toast.LENGTH_SHORT).show()
         binding.menuBottom.setOnItemSelectedListener {
             when (it) {
 

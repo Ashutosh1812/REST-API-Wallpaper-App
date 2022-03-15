@@ -9,7 +9,7 @@ import com.ashutosh.wallpaperapp.R
 
 class HorizontalListFragment() : Fragment() {
     private var orderBy: String? = null
-    private late
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
