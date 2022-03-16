@@ -16,7 +16,6 @@
             android:id="@+id/imageView"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="@color/purple_200"
             android:scaleType="centerCrop"
             android:contentDescription="TODO" />
     </androidx.cardview.widget.CardView>

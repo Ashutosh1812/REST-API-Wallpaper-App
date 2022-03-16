@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
     tools:context=".ui.fragments.HomeFragment"
     tools:ignore="ScrollViewCount">
 
@@ -24,7 +25,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="7dp"
             android:text="Newest Wallpapers"
-            android:textColor="@color/black"
+            android:textColor="@color/textPrimary"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -38,10 +39,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+
             android:layout_marginTop="15dp"
             android:layout_marginBottom="7dp"
             android:text="Category"
-            android:textColor="@color/black"
+            android:textColor="@color/textPrimary"
+
+
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -50,14 +54,18 @@
             android:id="@+id/categoryContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+
             android:layout_marginTop="15dp"
             android:layout_marginBottom="7dp"
             android:text="Colors tone"
-            android:textColor="@color/black"
+            android:textColor="@color/textPrimary"
+
+
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -66,21 +74,26 @@
             android:id="@+id/colorContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+
             android:layout_marginTop="15dp"
             android:layout_marginBottom="7dp"
             android:text="Nature"
-            android:textColor="@color/black"
+            android:textColor="@color/textPrimary"
+
+
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/container2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp" />
 
 
         <ProgressBar
@@ -93,4 +106,4 @@
     </LinearLayout>
 
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>
