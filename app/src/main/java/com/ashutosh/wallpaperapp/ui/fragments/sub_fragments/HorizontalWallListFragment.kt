@@ -1,5 +1,6 @@
 package com.ashutosh.wallpaperapp.ui.fragments.sub_fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ashutosh.wallpaperapp.adapter.WallpapersAdapter
 import com.ashutosh.wallpaperapp.databinding.FragmentHorizontalListBinding
 import com.ashutosh.wallpaperapp.databinding.FragmentHorizontalWallListBinding
+import com.ashutosh.wallpaperapp.ui.FullScreenActivity
+import com.ashutosh.wallpaperapp.utils.BounceEdgeEffectFactory
 import com.ashutosh.wallpaperapp.viewmodel.HorizontalWallListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -79,12 +82,23 @@ class HorizontalWallListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = WallpapersAdapter(requireContext().applicationContext, hwlViewModel.list)
+        adapter = WallpapersAdapter(requireContext().applicationContext, hwlViewModel.list){
+            /*Intent(requireContext(),FullScreenActivity::class.java).apply {
+                putExtra("wall",it)
+            }.also{
+                startActivity(it)
+            }*/
+            startActivity(Intent(requireContext(),FullScreenActivity::class.java).apply {
+                putExtra("wall",it)
+            })
+        }
 
         binding.recyclerView.apply {
             layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 adapter = this@HorizontalWallListFragment.adapter
         }
+        binding.recyclerView.edgeEffectFactory = BounceEdgeEffectFactory(true)
+
     }
 }

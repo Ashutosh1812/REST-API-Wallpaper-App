@@ -2,6 +2,7 @@ package com.ashutosh.wallpaperapp.models
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Urls(
     @SerializedName("full")
@@ -12,4 +13,4 @@ data class Urls(
     val raw: String? = null,
     @SerializedName("regular")
     val regular: String? = null
-)
+):Serializable

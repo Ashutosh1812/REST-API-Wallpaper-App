@@ -2,6 +2,8 @@ package com.ashutosh.wallpaperapp.hilt
 
 import android.content.Context
 import com.ashutosh.wallpaperapp.network.ApiService
+import com.ashutosh.wallpaperapp.room.AppDatabase
+import com.ashutosh.wallpaperapp.room.FavDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,8 +17,19 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun kuchBhi(@ApplicationContext context: Context):ApiService{
+    fun apiService(@ApplicationContext context: Context): ApiService {
         return ApiService.getInstance(context)
+    }
+    @Provides
+    @Singleton
+    fun dataBase(@ApplicationContext context: Context): AppDatabase {
+        return AppDatabase.instance(context)
+    }
+    
+    @Provides
+    @Singleton
+    fun dao(appDatabase: AppDatabase): FavDao {
+        return appDatabase.favDao()
     }
 
 }

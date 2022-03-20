@@ -1,21 +1,18 @@
 package com.ashutosh.wallpaperapp.room
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface FavDao {
-//    @Query("SELECT * From favTable where wallId = :id  ")
-//    fun getFav(id:Int):FavEntity?
+    @Query("SELECT * From favTable where wallId = :id  ")
+    suspend fun getFav(id:Int):FavEntity?
 
     @Query("SELECT * From favTable")
-    fun getAllFav(): List<FavEntity>
+    suspend fun getAllFav(): List<FavEntity>
 
-    @Insert
-    fun insert(favEntity: FavEntity)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(favEntity: FavEntity)
 
     @Delete
-    fun delete(favEntity: FavEntity)
+    suspend fun delete(favEntity: FavEntity)
 }

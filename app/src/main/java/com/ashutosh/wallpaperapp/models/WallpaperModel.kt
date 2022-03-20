@@ -2,6 +2,7 @@ package com.ashutosh.wallpaperapp.models
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class WallpaperModel(
 
@@ -35,8 +36,7 @@ data class WallpaperModel(
     @SerializedName("urls")
     val urls: Urls,
     @SerializedName("wall_id")
-    val wallId: Int
+    val wallId: Int,
+    var isFav:Boolean = false
 
-
-
-)
+):Serializable
