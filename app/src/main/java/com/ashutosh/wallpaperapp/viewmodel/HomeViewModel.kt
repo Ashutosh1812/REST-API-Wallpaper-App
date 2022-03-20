@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ashutosh.wallpaperapp.models.CategoryModel
 import com.ashutosh.wallpaperapp.models.WallpaperModel
+import com.ashutosh.wallpaperapp.repository.CategoryColorRepository
 import com.ashutosh.wallpaperapp.repository.WallpapersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val wallpapersRepository: WallpapersRepository) : ViewModel() {
+class HomeViewModel @Inject constructor(private val wallpapersRepository: WallpapersRepository,private val categoryColorRepository: CategoryColorRepository) : ViewModel() {
 
     val list: ArrayList<WallpaperModel> = ArrayList()
     private val categoryList:ArrayList<CategoryModel> = ArrayList()
@@ -45,7 +46,7 @@ class HomeViewModel @Inject constructor(private val wallpapersRepository: Wallpa
         _liveIsLoading.value = true
 
         viewModelScope.launch(Dispatchers.IO) {
-            val response = wallpapersRepository.getCategory()
+            val response = categoryColorRepository.getCategory()
             Log.d("TAG", "onCreate: $response")
             if (response.isSuccessful){
                 val categoryModel = response.body()

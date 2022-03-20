@@ -16,10 +16,6 @@ class WallpapersRepository @Inject constructor(private val apiService: ApiServic
                               color: String? = null,):Response<WallpaperPageModel>{
         return apiService.getWallpapers(page, orderBy, search, category, color)
     }
-    suspend fun getCategory(): Response<List<CategoryModel>> {
-        return apiService.getCategory()
-    }suspend fun getColor(): Response<List<ColorModel>> {
-        return apiService.getColor()
-    }
+
 
 }

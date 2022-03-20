@@ -3,6 +3,7 @@ package com.ashutosh.wallpaperapp.network
 
 import android.content.Context
 import androidx.core.content.ContextCompat
+import com.ashutosh.wallpaperapp.BuildConfig
 import com.ashutosh.wallpaperapp.models.CategoryModel
 import com.ashutosh.wallpaperapp.models.ColorModel
 import com.ashutosh.wallpaperapp.models.WallpaperPageModel
@@ -33,7 +34,7 @@ interface ApiService {
                 // Request customization: add request headers
 
                 val request: Request = original.newBuilder()
-                    .header("Authorization", "Bearer ${Config.apiKey}")
+                    .header("Authorization", "Bearer ${BuildConfig.API_KEY}")
                     .header("Accept", "application/json")
 
                     .build()
@@ -43,7 +44,7 @@ interface ApiService {
 
 
             val retrofit = Retrofit.Builder()
-                .baseUrl(Config.baseUrl)
+                .baseUrl(BuildConfig.BASE_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)

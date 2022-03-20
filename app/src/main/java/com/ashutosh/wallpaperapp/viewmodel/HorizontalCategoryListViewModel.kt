@@ -8,14 +8,14 @@ import androidx.lifecycle.viewModelScope
 import com.ashutosh.wallpaperapp.models.CategoryModel
 import com.ashutosh.wallpaperapp.network.ListStatus
 import com.ashutosh.wallpaperapp.network.ListStatusObserver
-import com.ashutosh.wallpaperapp.repository.WallpapersRepository
+import com.ashutosh.wallpaperapp.repository.CategoryColorRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 @HiltViewModel
-class HorizontalCategoryListViewModel @Inject constructor(private val wallpapersRepository: WallpapersRepository) : ViewModel() {
+class HorizontalCategoryListViewModel @Inject constructor(private val categoryColorRepository: CategoryColorRepository) : ViewModel() {
 
     private val _list: ArrayList<CategoryModel> = ArrayList()
     val list: List<CategoryModel> = _list
@@ -29,7 +29,7 @@ class HorizontalCategoryListViewModel @Inject constructor(private val wallpapers
         if (_list.isNotEmpty()) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            val response = wallpapersRepository.getCategory()
+            val response = categoryColorRepository.getCategory()
             Log.d("TAG", "onCreate: $response")
             if (response.isSuccessful) {
                 val wallpaperPageModel = response.body()
