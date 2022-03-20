@@ -1,5 +1,6 @@
 package com.ashutosh.wallpaperapp.ui
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -14,11 +15,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.Dispatcher
 import javax.inject.Inject
+
 @AndroidEntryPoint
 class FullScreenActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFullScreenBinding
 
-    @Inject lateinit var wallpapersRepository: WallpapersRepository
+    @Inject
+    lateinit var wallpapersRepository: WallpapersRepository
     private lateinit var wallModel: WallpaperModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,22 +30,35 @@ class FullScreenActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val model = intent.getSerializableExtra("wall") as? WallpaperModel
-        if (model == null) {
+        val data: Uri? = intent?.data
+        if (model == null && data == null) {
             Toast.makeText(this, "Wallpaper Not Provided", Toast.LENGTH_SHORT).show()
             finish()
             return
+        } else if (model != null) {
+            wallModel = model
+            updateUI()
         }
-        wallModel = model
+        else
+            fetchWallpaper(data!!)
 
+
+    }
+
+    private fun fetchWallpaper(data: Uri) {
+
+    }
+
+    private fun updateUI() {
         Glide.with(this).load(wallModel.urls.regular).into(binding.imageView)
 
         updateFavButton(wallModel.isFav)
         binding.favButton.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
-                if (wallModel.isFav){
+                if (wallModel.isFav) {
                     wallpapersRepository.removeToFav(wallModel.wallId)
                     wallModel.isFav = false
-                }else{
+                } else {
                     wallpapersRepository.addToFav(wallModel.wallId)
                     wallModel.isFav = true
                 }
@@ -50,7 +66,6 @@ class FullScreenActivity : AppCompatActivity() {
             }
 
         }
-
     }
 
     private fun updateFavButton(isFav: Boolean) {
