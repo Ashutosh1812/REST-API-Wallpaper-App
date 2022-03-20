@@ -12,7 +12,9 @@ import com.ashutosh.wallpaperapp.adapter.ColorAdapter
 import com.ashutosh.wallpaperapp.databinding.FragmentHorizontalColorListBinding
 import com.ashutosh.wallpaperapp.network.ListStatus
 import com.ashutosh.wallpaperapp.viewmodel.HorizontalColorListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HorizontalColorListFragment : Fragment() {
     private lateinit var binding: FragmentHorizontalColorListBinding
     private val hclViewModel: HorizontalColorListViewModel by viewModels()

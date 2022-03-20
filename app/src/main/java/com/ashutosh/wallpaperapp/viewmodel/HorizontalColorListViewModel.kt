@@ -10,11 +10,14 @@ import com.ashutosh.wallpaperapp.models.ColorModel
 import com.ashutosh.wallpaperapp.network.ListStatus
 import com.ashutosh.wallpaperapp.network.ListStatusObserver
 import com.ashutosh.wallpaperapp.repository.WallpapersRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class HorizontalColorListViewModel : ViewModel() {
+@HiltViewModel
+class HorizontalColorListViewModel @Inject constructor(private val wallpapersRepository: WallpapersRepository) : ViewModel() {
 
     private val _list: ArrayList<ColorModel> = ArrayList()
     val list: List<ColorModel> = _list
@@ -23,7 +26,6 @@ class HorizontalColorListViewModel : ViewModel() {
 
     val listObserver: LiveData<ListStatusObserver> = _listObserver
 
-    private val wallpapersRepository = WallpapersRepository()
 
     fun getColor() {
         if (_list.isNotEmpty()) return

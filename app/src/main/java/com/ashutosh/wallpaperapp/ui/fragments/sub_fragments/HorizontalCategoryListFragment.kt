@@ -12,7 +12,9 @@ import com.ashutosh.wallpaperapp.databinding.FragmentHorizontalCategoryListBindi
 import com.ashutosh.wallpaperapp.databinding.FragmentHorizontalListBinding
 import com.ashutosh.wallpaperapp.network.ListStatus
 import com.ashutosh.wallpaperapp.viewmodel.HorizontalCategoryListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HorizontalCategoryListFragment : Fragment() {
     private lateinit var binding: FragmentHorizontalCategoryListBinding
     private val hclViewModel: HorizontalCategoryListViewModel by viewModels()

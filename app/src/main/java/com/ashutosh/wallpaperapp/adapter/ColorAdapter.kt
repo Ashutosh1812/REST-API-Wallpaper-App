@@ -31,7 +31,7 @@ class ColorAdapter(val context: Context, private val list: List<ColorModel>) :
 //            ).into(holder.binding.imageView)
         val backgroundColor:String = wallpaperModelItem.value
         holder.binding.imageView.setBackgroundColor(Color.parseColor(backgroundColor))
-        holder.binding.categoryItemName.text = wallpaperModelItem.name
+//        holder.binding.categoryItemName.text = wallpaperModelItem.name
     }
 
     override fun getItemCount(): Int {

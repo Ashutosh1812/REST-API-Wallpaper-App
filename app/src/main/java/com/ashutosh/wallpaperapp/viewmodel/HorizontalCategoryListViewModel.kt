@@ -9,11 +9,13 @@ import com.ashutosh.wallpaperapp.models.CategoryModel
 import com.ashutosh.wallpaperapp.network.ListStatus
 import com.ashutosh.wallpaperapp.network.ListStatusObserver
 import com.ashutosh.wallpaperapp.repository.WallpapersRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
-class HorizontalCategoryListViewModel : ViewModel() {
+import javax.inject.Inject
+@HiltViewModel
+class HorizontalCategoryListViewModel @Inject constructor(private val wallpapersRepository: WallpapersRepository) : ViewModel() {
 
     private val _list: ArrayList<CategoryModel> = ArrayList()
     val list: List<CategoryModel> = _list
@@ -22,7 +24,6 @@ class HorizontalCategoryListViewModel : ViewModel() {
 
     val listObserver: LiveData<ListStatusObserver> = _listObserver
 
-    private val wallpapersRepository = WallpapersRepository()
 
     fun getCategories() {
         if (_list.isNotEmpty()) return

@@ -10,7 +10,10 @@ import com.ashutosh.wallpaperapp.databinding.ActivityMainBinding
 import com.ashutosh.wallpaperapp.ui.fragments.CategoryFragment
 import com.ashutosh.wallpaperapp.ui.fragments.FavoritesFragment
 import com.ashutosh.wallpaperapp.ui.fragments.HomeFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding

@@ -12,7 +12,9 @@ import com.ashutosh.wallpaperapp.adapter.WallpapersAdapter
 import com.ashutosh.wallpaperapp.databinding.FragmentHorizontalListBinding
 import com.ashutosh.wallpaperapp.databinding.FragmentHorizontalWallListBinding
 import com.ashutosh.wallpaperapp.viewmodel.HorizontalWallListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HorizontalWallListFragment : Fragment() {
     private var orderBy: String = ""
     private var category: String? = null

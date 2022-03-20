@@ -1,9 +1,12 @@
 package com.ashutosh.wallpaperapp.network
 
 
+import android.content.Context
+import androidx.core.content.ContextCompat
 import com.ashutosh.wallpaperapp.models.CategoryModel
 import com.ashutosh.wallpaperapp.models.ColorModel
 import com.ashutosh.wallpaperapp.models.WallpaperPageModel
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import retrofit2.Response
@@ -12,22 +15,31 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.io.File
 
 
 interface ApiService {
 
+
     companion object {
-        fun getInstance(): ApiService {
-            val okHttpClient = OkHttpClient.Builder().addInterceptor { chain ->
+        fun getInstance(context: Context): ApiService {
+            val cacheDir = File(context.cacheDir, "my-response-cache")
+            val cache = Cache(cacheDir, 10 * 1024 * 1024)
+            val okHttpClient = OkHttpClient.Builder()
+                .cache(cache)
+                .addInterceptor { chain ->
                 val original: Request = chain.request()
 
                 // Request customization: add request headers
+
                 val request: Request = original.newBuilder()
                     .header("Authorization", "Bearer ${Config.apiKey}")
                     .header("Accept", "application/json")
+
                     .build()
                 chain.proceed(request)
             }.build()
+
 
 
             val retrofit = Retrofit.Builder()

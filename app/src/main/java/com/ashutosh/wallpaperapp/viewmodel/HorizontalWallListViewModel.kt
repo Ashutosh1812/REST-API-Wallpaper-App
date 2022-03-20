@@ -7,18 +7,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ashutosh.wallpaperapp.models.WallpaperModel
 import com.ashutosh.wallpaperapp.repository.WallpapersRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
-class HorizontalWallListViewModel : ViewModel() {
+import javax.inject.Inject
+@HiltViewModel
+class HorizontalWallListViewModel @Inject constructor(private val wallpapersRepository: WallpapersRepository) : ViewModel() {
 
     private val _list: ArrayList<WallpaperModel> = ArrayList()
     val list : List<WallpaperModel> = _list
     private val _liveIsLoading: MutableLiveData<Boolean> = MutableLiveData(null)
     val liveIsLoading :LiveData<Boolean> = _liveIsLoading
 
-    private val wallpapersRepository = WallpapersRepository()
 
     fun getWallpaper(orderBy:String, category: String?=null) {
         if (_list.isNotEmpty()) return
