@@ -77,7 +77,9 @@ class HorizontalWallListFragment : Fragment() {
                     putString(ARG_PARAM1, orderBy)
                     putString("category", category)
                 }
+
             }
+
         }
     }
 

@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ashutosh.wallpaperapp.adapter.CategoriesAdapter
+import com.ashutosh.wallpaperapp.adapter.CategoriesHomeAdapter
 import com.ashutosh.wallpaperapp.databinding.FragmentHorizontalCategoryListBinding
-import com.ashutosh.wallpaperapp.databinding.FragmentHorizontalListBinding
 import com.ashutosh.wallpaperapp.network.ListStatus
+import com.ashutosh.wallpaperapp.utils.BounceEdgeEffectFactory
 import com.ashutosh.wallpaperapp.viewmodel.HorizontalCategoryListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HorizontalCategoryListFragment : Fragment() {
     private lateinit var binding: FragmentHorizontalCategoryListBinding
     private val hclViewModel: HorizontalCategoryListViewModel by viewModels()
-    lateinit var adapter: CategoriesAdapter
+    lateinit var homeAdapter: CategoriesHomeAdapter
 
 
     override fun onCreateView(
@@ -40,23 +41,29 @@ class HorizontalCategoryListFragment : Fragment() {
 //                    todo do something if wanted
                 }
                 ListStatus.INSERTED -> {
-                    adapter.notifyItemRangeInserted(it.positionStart, it.itemCount)
+                    homeAdapter.notifyItemRangeInserted(it.positionStart, it.itemCount)
                 }
                 else -> {
                 }
             }
         }
+        Toast.makeText(context, hclViewModel.getCategories().toString()
+            , Toast.LENGTH_SHORT).show()
         hclViewModel.getCategories()
     }
 
+
+
     private fun setupRecyclerView() {
-        adapter = CategoriesAdapter(requireContext(), hclViewModel.list)
+        homeAdapter = CategoriesHomeAdapter(requireContext(), hclViewModel.list)
 
         binding.recyclerView.apply {
             layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = this@HorizontalCategoryListFragment.adapter
+                adapter = this@HorizontalCategoryListFragment.homeAdapter
         }
+        binding.recyclerView.edgeEffectFactory = BounceEdgeEffectFactory(true)
+
     }
 }
 

@@ -57,17 +57,21 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.home -> {
                     switchFragment(fragement)
+                    binding.toolbarTitle.text = "Wallpaper App"
                 }
                 R.id.category -> {
                     switchFragment(CategoryFragment())
-
+                    binding.toolbarTitle.text = "Category"
                 }
                 R.id.favorites -> {
                     switchFragment(FavoritesFragment())
+                    binding.toolbarTitle.text = "Favorites"
 
                 }
                 R.id.settings -> {
                     switchFragment(CategoryFragment())
+                    binding.toolbarTitle.text = "Profile"
+
                 }
             }
 

@@ -8,12 +8,23 @@
         <entry key="..\:/Users/Ashutosh/Documents/GitHub/REST-API-Wallpaper-App/app/src/main/res/layout/activity_main.xml" value="0.1693840579710145" />
         <entry key="..\:/Users/Ashutosh/Documents/GitHub/REST-API-Wallpaper-App/app/src/main/res/layout/fragment_home.xml" value="0.17527173913043478" />
         <entry key="..\:/Users/Ashutosh/Documents/GitHub/REST-API-Wallpaper-App/app/src/main/res/layout/item_layout_image.xml" value="0.27291666666666664" />
+        <entry key="app/src/main/res/drawable/bottom_sheet_item_card.xml" value="0.2215" />
+        <entry key="app/src/main/res/drawable/btn_card.xml" value="0.2085" />
+        <entry key="app/src/main/res/drawable/button_bg.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/card.xml" value="0.238" />
+        <entry key="app/src/main/res/drawable/card_view_card.xml" value="0.2085" />
+        <entry key="app/src/main/res/drawable/details_card.xml" value="0.2085" />
+        <entry key="app/src/main/res/drawable/gradient_card.xml" value="0.2085" />
+        <entry key="app/src/main/res/drawable/ic_baseline_cloud_download_24.xml" value="0.258" />
         <entry key="app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.1555" />
+        <entry key="app/src/main/res/drawable/x_toolbar_gradient.xml" value="0.21" />
         <entry key="app/src/main/res/layout-v28/fragment_home.xml" value="0.28125" />
         <entry key="app/src/main/res/layout/activity_full_screen.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2504528985507246" />
         <entry key="app/src/main/res/layout/activity_test.xml" value="0.28125" />
+        <entry key="app/src/main/res/layout/activity_view.xml" value="0.27708333333333335" />
+        <entry key="app/src/main/res/layout/bottom_sheet_layout.xml" value="0.2427536231884058" />
+        <entry key="app/src/main/res/layout/category_image_layout.xml" value="0.2545289855072464" />
         <entry key="app/src/main/res/layout/category_item_layout.xml" value="0.26313405797101447" />
         <entry key="app/src/main/res/layout/color_item_layout.xml" value="0.24954710144927536" />
         <entry key="app/src/main/res/layout/color_layout.xml" value="0.24954710144927536" />
@@ -25,6 +36,7 @@
         <entry key="app/src/main/res/layout/fragment_horizontal_list.xml" value="0.24954710144927536" />
         <entry key="app/src/main/res/layout/fragment_horizontal_wall_list.xml" value="0.24954710144927536" />
         <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.28125" />
+        <entry key="app/src/main/res/layout/home_category_item_layout.xml" value="0.2545289855072464" />
         <entry key="app/src/main/res/layout/item_layout_image.xml" value="0.2504528985507246" />
         <entry key="app/src/main/res/layout/themes.xml" value="0.26145833333333335" />
         <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.6357421875" />

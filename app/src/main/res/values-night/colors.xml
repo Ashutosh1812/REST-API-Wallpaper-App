@@ -9,4 +9,8 @@
     <color name="colorPrimary">#111111</color>
     <color name="toolbarColor">#111111</color>
 
+
+    <color name="status_bar">#111111</color>
+    <color name="navigation_bar">#090C0E</color>
+
 </resources>

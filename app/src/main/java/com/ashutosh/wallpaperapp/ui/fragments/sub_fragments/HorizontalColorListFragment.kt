@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ashutosh.wallpaperapp.adapter.CategoriesAdapter
 import com.ashutosh.wallpaperapp.adapter.ColorAdapter
 import com.ashutosh.wallpaperapp.databinding.FragmentHorizontalColorListBinding
 import com.ashutosh.wallpaperapp.network.ListStatus
+import com.ashutosh.wallpaperapp.utils.BounceEdgeEffectFactory
 import com.ashutosh.wallpaperapp.viewmodel.HorizontalColorListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -43,6 +43,7 @@ class HorizontalColorListFragment : Fragment() {
                     adapter.notifyItemRangeInserted(it.positionStart, it.itemCount)
                 }
                 else -> {
+
                 }
             }
         }
@@ -57,6 +58,8 @@ class HorizontalColorListFragment : Fragment() {
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 adapter = this@HorizontalColorListFragment.adapter
         }
+        binding.recyclerView.edgeEffectFactory = BounceEdgeEffectFactory(true)
+
     }
 }
 

@@ -9,10 +9,16 @@
     <color name="white">#FFFFFFFF</color>
     <color name="textPrimary">#111111</color>
     <color name="textSecondary">#444444</color>
+    <color name="backgroundSecondary">#444444</color>
     <color name="textTertiary">#707070</color>
     <color name="colorPrimary">#e0e0e0</color>
     <color name="colorSecondary">#ffffff</color>
     <color name="colorTertiary">#ffffff</color>
     <color name="toolbarColor">#ffffff</color>
+
+
+    <color name="status_bar">#e0e0e0</color>
+    <color name="navigation_bar">#F2F9FB</color>
+    <color name="bg_dull">#222222</color>
 
 </resources>

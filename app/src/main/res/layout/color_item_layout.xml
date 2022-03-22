@@ -8,7 +8,8 @@
         android:id="@+id/cardView"
         app:cardElevation="0dp"
         app:cardCornerRadius="10dp"
-        android:layout_margin="5dp"
+        android:layout_marginStart="@dimen/hor_card_gap"
+        android:layout_marginEnd="@dimen/hor_card_gap"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

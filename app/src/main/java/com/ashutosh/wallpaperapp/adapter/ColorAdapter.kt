@@ -5,9 +5,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.ashutosh.wallpaperapp.databinding.CategoryItemLayoutBinding
 import com.ashutosh.wallpaperapp.databinding.ColorItemLayoutBinding
-import com.ashutosh.wallpaperapp.databinding.ItemLayoutImageBinding
 import com.ashutosh.wallpaperapp.models.CategoryModel
 import com.ashutosh.wallpaperapp.models.ColorModel
 import com.bumptech.glide.Glide

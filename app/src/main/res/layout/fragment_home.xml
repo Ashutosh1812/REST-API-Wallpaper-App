@@ -9,7 +9,7 @@
     tools:context=".ui.fragments.HomeFragment"
     tools:ignore="ScrollViewCount">
 
-    <!-- TODO: Update blank fragment layout -->
+
 
 
     <LinearLayout
@@ -18,17 +18,8 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/text_View"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="7dp"
-            android:text="Newest Wallpapers"
-            android:textColor="@color/textPrimary"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
+            style="@style/CustomTextView"
+            android:text="NewestWallpaper" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/container1"
@@ -36,19 +27,8 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="7dp"
-            android:text="Category"
-            android:textColor="@color/textPrimary"
-
-
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
+            style="@style/CustomTextView"
+            android:text="Categories" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/categoryContainer"
@@ -56,19 +36,8 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="7dp"
-            android:text="Colors tone"
-            android:textColor="@color/textPrimary"
-
-
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
+            style="@style/CustomTextView"
+            android:text="Colors" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/colorContainer"
@@ -76,18 +45,8 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="7dp"
-            android:text="Nature"
-            android:textColor="@color/textPrimary"
-
-
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            style="@style/CustomTextView"
+            android:text="Nature" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/container2"
