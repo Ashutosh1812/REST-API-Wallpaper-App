@@ -58,7 +58,7 @@ class CategoryFragment : Fragment() {
 
         binding.categoriesFragmentRecyclerView.apply {
             layoutManager =
-                GridLayoutManager(context, 3)
+                GridLayoutManager(context, 2)
             adapter = this@CategoryFragment.categoriesAdapter
         }
     }

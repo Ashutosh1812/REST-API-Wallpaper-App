@@ -21,17 +21,20 @@
         android:layout_marginEnd="20dp"
         app:behavior_peekHeight="40dp">
 
-            <ImageView
-                android:id="@+id/blur_thumb_image"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@drawable/card_view_card"
-                android:scaleType="centerCrop" />
+
+
+
+        <eightbitlab.com.blurview.BlurView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/card_view"
+            android:id="@+id/blurryView"/>
+
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:background="@drawable/card_view_card"/>
+                android:background="@drawable/card_view"/>
 
             <ImageView
                 android:layout_width="30dp"

@@ -5,11 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
     tools:context=".ui.fragments.HomeFragment"
     tools:ignore="ScrollViewCount">
-
-
 
 
     <LinearLayout
@@ -24,7 +21,7 @@
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/container1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="200dp" />
 
         <TextView
             style="@style/CustomTextView"
@@ -33,7 +30,7 @@
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/categoryContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="60dp" />
 
         <TextView
             style="@style/CustomTextView"
@@ -42,7 +39,7 @@
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/colorContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="50dp" />
 
         <TextView
             style="@style/CustomTextView"
@@ -51,7 +48,7 @@
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/container2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_marginBottom="15dp" />
 
 

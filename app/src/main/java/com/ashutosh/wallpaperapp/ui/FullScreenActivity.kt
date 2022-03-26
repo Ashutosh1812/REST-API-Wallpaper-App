@@ -1,36 +1,43 @@
 package com.ashutosh.wallpaperapp.ui
 
-import android.R.drawable
+import android.annotation.TargetApi
+import android.app.Activity
 import android.app.WallpaperManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.renderscript.Allocation
+import android.renderscript.RenderScript
+import android.renderscript.ScriptIntrinsicBlur
+import android.util.Log
 import android.view.View
+import android.view.ViewOutlineProvider
+import android.view.ViewTreeObserver
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.lifecycle.viewModelScope
 import com.ashutosh.wallpaperapp.R
 import com.ashutosh.wallpaperapp.databinding.ActivityFullScreenBinding
 import com.ashutosh.wallpaperapp.models.WallpaperModel
 import com.ashutosh.wallpaperapp.repository.WallpapersRepository
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.MultiTransformation
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
-import jp.wasabeef.glide.transformations.BlurTransformation
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation
+import eightbitlab.com.blurview.BlurView
+import eightbitlab.com.blurview.RenderScriptBlur
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import kotlin.math.roundToInt
 
 
 @AndroidEntryPoint
@@ -67,6 +74,7 @@ class FullScreenActivity : AppCompatActivity() {
 
         bottomSheet()
         setWallpaperButton()
+        applyBlurView(binding.blurryView,0.5f)
     }
 
     private fun fetchWallpaper(data: Uri) {
@@ -115,7 +123,7 @@ class FullScreenActivity : AppCompatActivity() {
     private fun setWallpaperButton() {
 
         binding.btnSetWallpaper.setOnClickListener {
-            val wallpaperManager = WallpaperManager.getInstance(baseContext)
+            val wallpaperManager = WallpaperManager.getInstance(applicationContext)
 
             binding.imageView.isDrawingCacheEnabled = true
 //        Bitmap bitmap = ((BitmapDrawable)photoView.getDrawable()).getBitmap();
@@ -123,9 +131,33 @@ class FullScreenActivity : AppCompatActivity() {
 
             wallpaperManager.setBitmap(bitmap)
             Toast.makeText(this, "Wallpaper Change Successfully", Toast.LENGTH_SHORT).show()
+
+
+
         }
 
+    }
+
+
+
+
+    fun Activity.applyBlurView(blurView: BlurView, radius:Float){
+        val decorView:View = window.decorView
+        val windowBackground: Drawable = decorView.background
+
+        blurView.setupWith(decorView.findViewById(android.R.id.content))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurAlgorithm(RenderScriptBlur(this))
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
+            .setHasFixedTransformationMatrix(true)
+        blurView.outlineProvider = ViewOutlineProvider.BACKGROUND
+        blurView.clipToOutline = true
 
     }
+
+
+
+
 
 }

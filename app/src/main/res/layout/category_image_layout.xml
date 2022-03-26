@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="255dp">
 
 
     <androidx.cardview.widget.CardView
         android:layout_width="120dp"
         android:layout_height="200dp"
-        android:layout_marginStart="@dimen/hor_card_gap"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="55dp"
         android:layout_marginEnd="@dimen/hor_card_gap"
         android:elevation="1dp"
@@ -32,7 +32,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="120dp"
         android:layout_height="200dp"
-        android:layout_marginStart="@dimen/hor_card_gap"
+
+        android:layout_marginStart="25dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="@dimen/hor_card_gap"
         app:cardCornerRadius="10dp"

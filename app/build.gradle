@@ -93,6 +93,7 @@ dependencies {
 
     // Blur Image View
 
-    implementation 'com.github.jgabrielfreitas:BlurImageView:1.0.1'
+//    implementation 'com.github.jgabrielfreitas:BlurImageView:1.0.1'
 
+    implementation 'com.github.Dimezis:BlurView:version-1.6.6'
 }

@@ -11,7 +11,7 @@
             android:id="@+id/image_view"
             android:layout_width="120dp"
             android:layout_height="200dp"
-            android:background="@drawable/card_view_card"
+            android:background="@drawable/card_view"
             android:layout_marginLeft="@dimen/hor_card_gap"
             android:layout_marginRight="@dimen/hor_card_gap"
             app:layout_constraintBottom_toBottomOf="parent"
