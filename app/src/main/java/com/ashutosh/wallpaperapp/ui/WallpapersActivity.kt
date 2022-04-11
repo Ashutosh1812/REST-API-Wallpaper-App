@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.AbsListView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -24,10 +25,6 @@ class WallpapersActivity : AppCompatActivity() {
     private var page: Int = 1
     private val hwlViewModel: VerticalWallListViewModel by viewModels()
     var model: String? = null
-    var isScrolling = false
-    var totalItem: Int? = null
-    private var currentItem: Int? = null
-    private var scrollOutItem: Int? = null
 
     private lateinit var verticalWallpapersAdapter: VerticalWallpapersAdapter
 
@@ -39,25 +36,14 @@ class WallpapersActivity : AppCompatActivity() {
 
         binding.toolbarTitle.text = model
         setupRecyclerView()
-        setUpPagination(true)
         fetchWallpapers()
 //        hwlViewModel.getWallpaper(2, orderBy, model)
 
     }
 
-
-
-
-    private fun setUpPagination(isPaginationAllowed: Boolean) {
-
-
-
-    }
-
-
     @SuppressLint("NotifyDataSetChanged")
     private fun fetchWallpapers() {
-        hwlViewModel.getWallpaper(page, orderBy, model)
+        hwlViewModel.getWallpaper(orderBy, model)
 
         hwlViewModel.liveIsLoading.observe(this) {
 
@@ -65,7 +51,7 @@ class WallpapersActivity : AppCompatActivity() {
 
             when (it) {
                 null -> {
-//                    binding.progressBar.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.VISIBLE
                 }
                 false -> {
                     Log.d("TAG", "fun: ${hwlViewModel.list}")
@@ -75,10 +61,10 @@ class WallpapersActivity : AppCompatActivity() {
 
                     verticalWallpapersAdapter.notifyDataSetChanged()
 
-//                    binding.progressBar.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
                 }
                 else -> {
-//                    binding.progressBar.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.VISIBLE
 
                 }
             }
@@ -95,33 +81,25 @@ class WallpapersActivity : AppCompatActivity() {
             })
         }
 
-        val manager = GridLayoutManager(applicationContext,2)
+        var isLoading = true
+        val manager = GridLayoutManager(applicationContext,3)
         binding.recyclerView.edgeEffectFactory = BounceEdgeEffectFactory()
         binding.recyclerView.layoutManager = manager
         binding.recyclerView.adapter = this@WallpapersActivity.verticalWallpapersAdapter
 
-        var loading = true
-        var pastVisibleItems: Int
-        var visibleItemCount: Int
-        var totalItemCount: Int
-
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy > 0) {
-                    visibleItemCount = manager.childCount
-                    totalItemCount = manager.itemCount
-                    pastVisibleItems = manager.findFirstVisibleItemPosition()
-                    if (loading) {
-                        if (visibleItemCount + pastVisibleItems >= totalItemCount) {
-                            loading = false
-                            Log.v("...", "Last Item Wow !")
-                            // Do pagination.. i.e. fetch new data
-                            page++
-                            Toast.makeText(baseContext, ""+page, Toast.LENGTH_SHORT).show()
-                            hwlViewModel.getWallpaper(2, orderBy, model)
+                    val visibleItemCount: Int = manager.childCount
+                    val totalItemCount: Int = manager.itemCount
+                    val pastVisibleItems: Int = manager.findFirstVisibleItemPosition()
 
-                            loading = true
-                        }
+                    if (isLoading && visibleItemCount + pastVisibleItems >= totalItemCount) {
+                        Log.d("sdffsffsfsf","CallBack")
+                        hwlViewModel.getWallpaper(orderBy, model)
+                        isLoading = false
+//                            loading = true
+
                     }
                 }
             }

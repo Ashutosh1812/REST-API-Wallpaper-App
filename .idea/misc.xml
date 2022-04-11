@@ -18,6 +18,7 @@
         <entry key="app/src/main/res/drawable/gradient_card.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/ic_baseline_cloud_download_24.xml" value="0.258" />
         <entry key="app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.1555" />
+        <entry key="app/src/main/res/drawable/image_overlay.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/x_toolbar_gradient.xml" value="0.21" />
         <entry key="app/src/main/res/layout-v28/fragment_home.xml" value="0.28125" />
         <entry key="app/src/main/res/layout/activity_full_screen.xml" value="0.2" />
@@ -45,6 +46,7 @@
         <entry key="app/src/main/res/layout/fragment_vertical_wallpaper.xml" value="0.23641304347826086" />
         <entry key="app/src/main/res/layout/home_category_item_layout.xml" value="0.2545289855072464" />
         <entry key="app/src/main/res/layout/item_layout_image.xml" value="0.2504528985507246" />
+        <entry key="app/src/main/res/layout/item_wall_grid.xml" value="0.23641304347826086" />
         <entry key="app/src/main/res/layout/themes.xml" value="0.26145833333333335" />
         <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.6357421875" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.28125" />

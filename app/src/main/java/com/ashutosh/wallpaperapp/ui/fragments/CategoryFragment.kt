@@ -41,11 +41,17 @@ class CategoryFragment : Fragment() {
             if (it == null) return@observe
             when (it.status) {
                 ListStatus.INITIAL_LOADING -> {
+                    binding.progressBar.visibility = View.VISIBLE
+
                 }
                 ListStatus.INSERTED -> {
                     categoriesAdapter.notifyItemRangeInserted(it.positionStart, it.itemCount)
+                    binding.progressBar.visibility = View.GONE
+
                 }
                 else -> {
+                    binding.progressBar.visibility = View.VISIBLE
+
                 }
             }
         }
@@ -64,7 +70,7 @@ class CategoryFragment : Fragment() {
         }
         binding.categoriesFragmentRecyclerView.apply {
             layoutManager =
-                GridLayoutManager(context, 2)
+                GridLayoutManager(context, 3)
             adapter = this@CategoryFragment.categoriesAdapter
         }
     }

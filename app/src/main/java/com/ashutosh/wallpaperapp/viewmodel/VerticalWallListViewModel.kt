@@ -20,21 +20,34 @@ class VerticalWallListViewModel @Inject constructor(private val wallpapersReposi
     val list : List<WallpaperModel> = _list
     private val _liveIsLoading: MutableLiveData<Boolean> = MutableLiveData(null)
     val liveIsLoading :LiveData<Boolean> = _liveIsLoading
+    private var page:Int = 1
+    private val listSize: Int? = null
+    var loading = true
 
 
-    fun getWallpaper(page:Int, orderBy:String, category: String?=null) {
-        if (_list.isNotEmpty()) return
+
+
+    fun getWallpaper(orderBy:String, category: String?=null) {
+//        if (_list.isNotEmpty()) return
         _liveIsLoading.value = true
 
         viewModelScope.launch(Dispatchers.IO) {
             val response = wallpapersRepository.getWallpapers(page = page,orderBy = orderBy, category = category)
             Log.d("TAG", "onCreate: $response")
             if (response.isSuccessful){
+                if (loading) {
+                    loading = false
+                    Log.v("...", "Last Item Wow !")
+                    page++
+                    // Do pagination.. i.e. fetch new data
+//                            Toast.makeText(baseContext, ""+page, Toast.LENGTH_SHORT).show()
+
+                }
                 val wallpaperPageModel = response.body()
                 Log.d("TAG", "onCreate: $wallpaperPageModel")
                 withContext(Dispatchers.Main){
                     _list.addAll(wallpaperPageModel!!.data)
-                    Log.d("fsfsfsfsfsf",wallpaperPageModel.total.toString())
+                    Log.d("Total Item In List",wallpaperPageModel.total.toString())
                     _liveIsLoading.value = false
                 }
             }
