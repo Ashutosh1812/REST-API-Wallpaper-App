@@ -19,6 +19,7 @@ class WallpapersActivity : AppCompatActivity() {
     private var page: Int = 1
     private val hwlViewModel: HorizontalWallListViewModel by viewModels()
 
+
     private lateinit var verticalWallpapersAdapter: VerticalWallpapersAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
