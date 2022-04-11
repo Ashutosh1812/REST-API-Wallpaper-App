@@ -15,6 +15,7 @@
 
 <!--    horizontal fragments -->
     <dimen name="hor_card_gap">4dp</dimen>
+    <dimen name="half_gap">5dp</dimen>
 
 
 </resources>

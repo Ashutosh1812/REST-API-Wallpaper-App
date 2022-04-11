@@ -1,29 +1,18 @@
 package com.ashutosh.wallpaperapp.ui
 
-import android.annotation.TargetApi
 import android.app.Activity
 import android.app.WallpaperManager
 import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.renderscript.Allocation
-import android.renderscript.RenderScript
-import android.renderscript.ScriptIntrinsicBlur
-import android.util.Log
 import android.view.View
 import android.view.ViewOutlineProvider
-import android.view.ViewTreeObserver
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.lifecycle.viewModelScope
 import com.ashutosh.wallpaperapp.R
 import com.ashutosh.wallpaperapp.databinding.ActivityFullScreenBinding
 import com.ashutosh.wallpaperapp.models.WallpaperModel
@@ -36,7 +25,6 @@ import eightbitlab.com.blurview.RenderScriptBlur
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
