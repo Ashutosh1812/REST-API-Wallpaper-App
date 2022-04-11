@@ -22,8 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class HorizontalWallListFragment : Fragment() {
     private var orderBy: String = ""
     private var page: Int = 1
-    private var currentItem: Int? = null
-    private var scrollOutItem: Int? = null
 
     private var category: String? = null
     private lateinit var binding: FragmentHorizontalWallListBinding
@@ -33,6 +31,8 @@ class HorizontalWallListFragment : Fragment() {
     var isScrolling: Boolean = false
     private val TAG = "Horizontal"
     var totalItem: Int? = null
+    private var currentItem: Int? = null
+    private var scrollOutItem: Int? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {

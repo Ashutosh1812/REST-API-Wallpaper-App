@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ashutosh.wallpaperapp.R
 import com.ashutosh.wallpaperapp.models.WallpaperModel
@@ -44,6 +45,7 @@ class VerticalWallpapersAdapter(
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(holder.imageView)
 
+//        Toast.makeText(context, ""+list.size, Toast.LENGTH_SHORT).show()
         Log.d("TAG", "onBindViewHolder->: ${wallpaperModelItem.urls.small}")
 
         holder.itemView.setOnClickListener {

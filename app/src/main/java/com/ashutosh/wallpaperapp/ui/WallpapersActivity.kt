@@ -1,15 +1,20 @@
 package com.ashutosh.wallpaperapp.ui
 
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.AbsListView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ashutosh.wallpaperapp.adapter.VerticalWallpapersAdapter
 import com.ashutosh.wallpaperapp.databinding.ActivityWallpapersBinding
 import com.ashutosh.wallpaperapp.utils.BounceEdgeEffectFactory
-import com.ashutosh.wallpaperapp.viewmodel.HorizontalWallListViewModel
+import com.ashutosh.wallpaperapp.viewmodel.VerticalWallListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,8 +22,12 @@ class WallpapersActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWallpapersBinding
     private var orderBy: String = "newest"
     private var page: Int = 1
-    private val hwlViewModel: HorizontalWallListViewModel by viewModels()
-
+    private val hwlViewModel: VerticalWallListViewModel by viewModels()
+    var model: String? = null
+    var isScrolling = false
+    var totalItem: Int? = null
+    private var currentItem: Int? = null
+    private var scrollOutItem: Int? = null
 
     private lateinit var verticalWallpapersAdapter: VerticalWallpapersAdapter
 
@@ -26,21 +35,31 @@ class WallpapersActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityWallpapersBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val model = intent.getStringExtra("wall")
+        model = intent.getStringExtra("wall")
 
-        binding.tv.text = model
+        binding.toolbarTitle.text = model
         setupRecyclerView()
-        fetchWallpapers(model!!)
+        setUpPagination(true)
+        fetchWallpapers()
+//        hwlViewModel.getWallpaper(2, orderBy, model)
 
     }
 
 
-    private fun fetchWallpapers(categoryName: String) {
-        hwlViewModel.getWallpaper(page, orderBy, categoryName)
 
-//        adapter.notifyDataSetChanged()
+
+    private fun setUpPagination(isPaginationAllowed: Boolean) {
+
+
+
+    }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun fetchWallpapers() {
+        hwlViewModel.getWallpaper(page, orderBy, model)
+
         hwlViewModel.liveIsLoading.observe(this) {
-//            Toast.makeText(this, "${homeViewModel.list}", Toast.LENGTH_SHORT).show()
 
             verticalWallpapersAdapter.notifyDataSetChanged()
 
@@ -50,28 +69,63 @@ class WallpapersActivity : AppCompatActivity() {
                 }
                 false -> {
                     Log.d("TAG", "fun: ${hwlViewModel.list}")
-                    Toast.makeText(this, "Notify", Toast.LENGTH_SHORT).show()
+
+//                    Toast.makeText(this, "Notify"+hwlViewModel.list, Toast.LENGTH_LONG).show()
+//                    binding.tv.text = hwlViewModel.list.toString()
+
                     verticalWallpapersAdapter.notifyDataSetChanged()
 
 //                    binding.progressBar.visibility = View.GONE
                 }
                 else -> {
 //                    binding.progressBar.visibility = View.VISIBLE
+
                 }
             }
         }
+
+
 
     }
 
     private fun setupRecyclerView() {
         verticalWallpapersAdapter = VerticalWallpapersAdapter(this, hwlViewModel.list){
+            startActivity(Intent(this, FullScreenActivity::class.java).apply {
+                putExtra("wall", it)
+            })
+        }
 
-        }
-        binding.recyclerView.apply {
-            edgeEffectFactory = BounceEdgeEffectFactory()
-            layoutManager =
-                GridLayoutManager(context, 2)
-            adapter = this@WallpapersActivity.verticalWallpapersAdapter
-        }
+        val manager = GridLayoutManager(applicationContext,2)
+        binding.recyclerView.edgeEffectFactory = BounceEdgeEffectFactory()
+        binding.recyclerView.layoutManager = manager
+        binding.recyclerView.adapter = this@WallpapersActivity.verticalWallpapersAdapter
+
+        var loading = true
+        var pastVisibleItems: Int
+        var visibleItemCount: Int
+        var totalItemCount: Int
+
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 0) {
+                    visibleItemCount = manager.childCount
+                    totalItemCount = manager.itemCount
+                    pastVisibleItems = manager.findFirstVisibleItemPosition()
+                    if (loading) {
+                        if (visibleItemCount + pastVisibleItems >= totalItemCount) {
+                            loading = false
+                            Log.v("...", "Last Item Wow !")
+                            // Do pagination.. i.e. fetch new data
+                            page++
+                            Toast.makeText(baseContext, ""+page, Toast.LENGTH_SHORT).show()
+                            hwlViewModel.getWallpaper(2, orderBy, model)
+
+                            loading = true
+                        }
+                    }
+                }
+            }
+        })
+
     }
 }
