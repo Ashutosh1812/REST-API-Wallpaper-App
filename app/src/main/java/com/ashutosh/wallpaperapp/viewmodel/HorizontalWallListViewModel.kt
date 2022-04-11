@@ -21,12 +21,12 @@ class HorizontalWallListViewModel @Inject constructor(private val wallpapersRepo
     val liveIsLoading :LiveData<Boolean> = _liveIsLoading
 
 
-    fun getWallpaper(orderBy:String, category: String?=null) {
+    fun getWallpaper(page:Int, orderBy:String, category: String?=null) {
         if (_list.isNotEmpty()) return
         _liveIsLoading.value = true
 
         viewModelScope.launch(Dispatchers.IO) {
-            val response = wallpapersRepository.getWallpapers(orderBy = orderBy, category = category)
+            val response = wallpapersRepository.getWallpapers(page = page,orderBy = orderBy, category = category)
             Log.d("TAG", "onCreate: $response")
             if (response.isSuccessful){
                 val wallpaperPageModel = response.body()

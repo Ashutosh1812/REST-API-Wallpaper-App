@@ -23,6 +23,8 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2504528985507246" />
         <entry key="app/src/main/res/layout/activity_test.xml" value="0.28125" />
         <entry key="app/src/main/res/layout/activity_view.xml" value="0.27708333333333335" />
+        <entry key="app/src/main/res/layout/activity_wallpaers.xml" value="0.2658514492753623" />
+        <entry key="app/src/main/res/layout/activity_wallpapers.xml" value="0.26721014492753625" />
         <entry key="app/src/main/res/layout/bottom_sheet_layout.xml" value="0.2427536231884058" />
         <entry key="app/src/main/res/layout/category_image_layout.xml" value="0.2545289855072464" />
         <entry key="app/src/main/res/layout/category_item_layout.xml" value="0.26313405797101447" />
@@ -30,12 +32,16 @@
         <entry key="app/src/main/res/layout/color_layout.xml" value="0.24954710144927536" />
         <entry key="app/src/main/res/layout/fragment_category.xml" value="0.2504528985507246" />
         <entry key="app/src/main/res/layout/fragment_favorites.xml" value="0.2504528985507246" />
+        <entry key="app/src/main/res/layout/fragment_for_vertical_wallpapers.xml" value="0.2296195652173913" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_horizontal_category_list.xml" value="0.24954710144927536" />
         <entry key="app/src/main/res/layout/fragment_horizontal_color_list.xml" value="0.24954710144927536" />
         <entry key="app/src/main/res/layout/fragment_horizontal_list.xml" value="0.24954710144927536" />
         <entry key="app/src/main/res/layout/fragment_horizontal_wall_list.xml" value="0.24954710144927536" />
+        <entry key="app/src/main/res/layout/fragment_list_category.xml" value="0.23641304347826086" />
         <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.28125" />
+        <entry key="app/src/main/res/layout/fragment_vertical_wall_list.xml" value="0.23641304347826086" />
+        <entry key="app/src/main/res/layout/fragment_vertical_wallpaper.xml" value="0.23641304347826086" />
         <entry key="app/src/main/res/layout/home_category_item_layout.xml" value="0.2545289855072464" />
         <entry key="app/src/main/res/layout/item_layout_image.xml" value="0.2504528985507246" />
         <entry key="app/src/main/res/layout/themes.xml" value="0.26145833333333335" />

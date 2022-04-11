@@ -47,8 +47,7 @@ class HorizontalCategoryListFragment : Fragment() {
                 }
             }
         }
-        Toast.makeText(context, hclViewModel.getCategories().toString()
-            , Toast.LENGTH_SHORT).show()
+
         hclViewModel.getCategories()
     }
 

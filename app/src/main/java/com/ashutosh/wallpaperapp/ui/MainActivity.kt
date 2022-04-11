@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.menuBottom.setItemSelected(R.id.home)
 
-        Toast.makeText(this, resources.getDimensionPixelSize(resourceId).toString()+ "fhgfhghgg", Toast.LENGTH_SHORT).show()
         binding.menuBottom.setOnItemSelectedListener {
             when (it) {
 
