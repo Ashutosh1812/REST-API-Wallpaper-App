@@ -1,34 +1,33 @@
 package com.ashutosh.wallpaperapp.ui
 
 import android.app.Activity
+import android.app.DownloadManager
 import android.app.WallpaperManager
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
+import android.os.Environment
 import android.view.View
 import android.view.ViewOutlineProvider
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.lifecycle.viewModelScope
 import com.ashutosh.wallpaperapp.R
 import com.ashutosh.wallpaperapp.databinding.ActivityFullScreenBinding
 import com.ashutosh.wallpaperapp.models.WallpaperModel
 import com.ashutosh.wallpaperapp.repository.WallpapersRepository
-import com.ashutosh.wallpaperapp.viewmodel.HorizontalWallListViewModel
 import com.bumptech.glide.Glide
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import eightbitlab.com.blurview.BlurView
 import eightbitlab.com.blurview.RenderScriptBlur
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 
@@ -66,11 +65,33 @@ class FullScreenActivity : AppCompatActivity() {
 
 //        bottomSheet()
         setWallpaperButton()
+        downloadWallpaper()
 //        applyBlurView(binding.blurryView,0.5f)
     }
 
     private fun fetchWallpaper(data: Uri) {
 
+    }
+
+
+    private fun downloadWallpaper(){
+        binding.btnDownload.setOnClickListener{
+            val url = wallModel.urls.full
+            val request = DownloadManager.Request(Uri.parse(url))
+            request.setDescription("wallModel.author.")
+            request.setTitle("Wallpaper_${wallModel.wallId}")
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                request.allowScanningByMediaScanner()
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            }
+            request.setDestinationInExternalPublicDir(
+                Environment.DIRECTORY_PICTURES,
+                "Wall.png"
+            )
+
+            val manager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+            manager.enqueue(request)
+        }
     }
 
     private fun updateUI() {
