@@ -1,10 +1,16 @@
 package com.ashutosh.wallpaperapp.viewmodel
 
+import android.app.WallpaperManager
+import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
+import android.widget.Button
+import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ashutosh.wallpaperapp.R
 import com.ashutosh.wallpaperapp.models.WallpaperModel
 import com.ashutosh.wallpaperapp.repository.WallpapersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -38,6 +44,8 @@ class HorizontalWallListViewModel @Inject constructor(private val wallpapersRepo
             }
         }
     }
+
+
 
 
 }

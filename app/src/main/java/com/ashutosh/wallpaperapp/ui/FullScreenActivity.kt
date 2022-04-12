@@ -2,29 +2,33 @@ package com.ashutosh.wallpaperapp.ui
 
 import android.app.Activity
 import android.app.WallpaperManager
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.view.ViewOutlineProvider
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.lifecycle.viewModelScope
 import com.ashutosh.wallpaperapp.R
 import com.ashutosh.wallpaperapp.databinding.ActivityFullScreenBinding
 import com.ashutosh.wallpaperapp.models.WallpaperModel
 import com.ashutosh.wallpaperapp.repository.WallpapersRepository
+import com.ashutosh.wallpaperapp.viewmodel.HorizontalWallListViewModel
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import eightbitlab.com.blurview.BlurView
 import eightbitlab.com.blurview.RenderScriptBlur
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 
@@ -60,9 +64,9 @@ class FullScreenActivity : AppCompatActivity() {
             fetchWallpaper(data!!)
 
 
-        bottomSheet()
+//        bottomSheet()
         setWallpaperButton()
-        applyBlurView(binding.blurryView,0.5f)
+//        applyBlurView(binding.blurryView,0.5f)
     }
 
     private fun fetchWallpaper(data: Uri) {
@@ -102,27 +106,28 @@ class FullScreenActivity : AppCompatActivity() {
 
     }
 
-    private fun bottomSheet() {
+   /* private fun bottomSheet() {
         BottomSheetBehavior.from(binding.bottomSheet).apply {
             this.state = BottomSheetBehavior.STATE_COLLAPSED
         }
-    }
+    }*/
 
     private fun setWallpaperButton() {
-
         binding.btnSetWallpaper.setOnClickListener {
             val wallpaperManager = WallpaperManager.getInstance(applicationContext)
-
             binding.imageView.isDrawingCacheEnabled = true
 //        Bitmap bitmap = ((BitmapDrawable)photoView.getDrawable()).getBitmap();
             val bitmap:Bitmap = binding.imageView.drawingCache
+            CoroutineScope(Dispatchers.IO).launch {
+                wallpaperManager.setBitmap(bitmap)
 
-            wallpaperManager.setBitmap(bitmap)
+            }
             Toast.makeText(this, "Wallpaper Change Successfully", Toast.LENGTH_SHORT).show()
 
-
-
         }
+
+
+
 
     }
 

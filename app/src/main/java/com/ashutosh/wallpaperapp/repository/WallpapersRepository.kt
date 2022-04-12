@@ -7,6 +7,8 @@ import com.ashutosh.wallpaperapp.models.WallpaperPageModel
 import com.ashutosh.wallpaperapp.network.ApiService
 import com.ashutosh.wallpaperapp.room.FavDao
 import com.ashutosh.wallpaperapp.room.FavEntity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -15,6 +17,8 @@ class WallpapersRepository @Inject constructor(
     private val favDao: FavDao
 ) {
     //    private val apiService = ApiService.getInstance(context = context)
+
+
     suspend fun getWallpapers(
         page: Int = 1, orderBy: String = "newest",
         search: String? = null,

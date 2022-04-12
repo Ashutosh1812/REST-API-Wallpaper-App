@@ -22,7 +22,7 @@ class VerticalWallListViewModel @Inject constructor(private val wallpapersReposi
     val liveIsLoading :LiveData<Boolean> = _liveIsLoading
     private var page:Int = 1
     private val listSize: Int? = null
-    var loading = true
+    public var loading = true
 
 
 

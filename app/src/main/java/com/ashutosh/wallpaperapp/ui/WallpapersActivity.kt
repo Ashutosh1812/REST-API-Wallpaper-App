@@ -25,6 +25,7 @@ class WallpapersActivity : AppCompatActivity() {
     private var page: Int = 1
     private val hwlViewModel: VerticalWallListViewModel by viewModels()
     var model: String? = null
+    var isLoading = true
 
     private lateinit var verticalWallpapersAdapter: VerticalWallpapersAdapter
 
@@ -81,7 +82,6 @@ class WallpapersActivity : AppCompatActivity() {
             })
         }
 
-        var isLoading = true
         val manager = GridLayoutManager(applicationContext,3)
         binding.recyclerView.edgeEffectFactory = BounceEdgeEffectFactory()
         binding.recyclerView.layoutManager = manager
@@ -90,15 +90,14 @@ class WallpapersActivity : AppCompatActivity() {
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy > 0) {
-                    val visibleItemCount: Int = manager.childCount
                     val totalItemCount: Int = manager.itemCount
+                    val visibleItemCount: Int = manager.childCount
                     val pastVisibleItems: Int = manager.findFirstVisibleItemPosition()
 
                     if (isLoading && visibleItemCount + pastVisibleItems >= totalItemCount) {
                         Log.d("sdffsffsfsf","CallBack")
                         hwlViewModel.getWallpaper(orderBy, model)
                         isLoading = false
-//                            loading = true
 
                     }
                 }
