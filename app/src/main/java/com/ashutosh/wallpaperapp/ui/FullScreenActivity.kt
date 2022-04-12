@@ -1,8 +1,10 @@
 package com.ashutosh.wallpaperapp.ui
 
 import android.app.Activity
+import android.app.Dialog
 import android.app.DownloadManager
 import android.app.WallpaperManager
+import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Drawable
@@ -11,8 +13,13 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewOutlineProvider
+import android.view.Window
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -27,7 +34,6 @@ import eightbitlab.com.blurview.RenderScriptBlur
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.io.File
 import javax.inject.Inject
 
 
@@ -64,8 +70,10 @@ class FullScreenActivity : AppCompatActivity() {
 
 
 //        bottomSheet()
-        setWallpaperButton()
+        setWallpaper()
         downloadWallpaper()
+        backButton()
+//        showDialog("hdf")
 //        applyBlurView(binding.blurryView,0.5f)
     }
 
@@ -74,8 +82,48 @@ class FullScreenActivity : AppCompatActivity() {
     }
 
 
+        private fun showDialog(title: String) {
+            val dialogBuilder = AlertDialog.Builder(applicationContext, R.style.ThemeOverlay_Material3_MaterialAlertDialog)
+            val inflater = this.layoutInflater
+            val dialogView = inflater.inflate(R.layout.more_dialog_layout, null)
+            dialogBuilder.setView(dialogView)
+//            val radioGroupChat = dialogView.radio_group_chat
+//            dialogView.radioButton_user_chat.isChecked = true
+            /*dialogBuilder.setPositiveButton(getString("R.string.ok_text".toInt()), object : DialogInterface.OnClickListener {
+                override fun onClick(dialog: DialogInterface, id: Int) {
+                   *//* when (radioGroupChat.checkedRadioButtonId) {
+                        R.id.radioButton_user_chat -> {
+                            (activity as HomeActivity).replaceFragment(MySkippersFragment.getInstance(isFromChat = true))
+                        }
+                        R.id.radioButton_circle_chat -> {
+                            (activity as HomeActivity).replaceFragment(PickCircleFragment.getInstance(
+                                PickCircleFragment.NEW_CIRCLE_CHAT), true)
+                        }
+                    }*//*
+                }
+            })
+            dialogBuilder.setNegativeButton(getString("Cancle".toInt()), object : DialogInterface.OnClickListener {
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                }
+            })*/
+
+            val alertDialog = dialogBuilder.create()
+            alertDialog.show()
+
+    }
+
+
+    private fun backButton(){
+
+        binding.backButton.setOnClickListener{
+            finish()
+        }
+
+    }
+
+
     private fun downloadWallpaper(){
-        binding.btnDownload.setOnClickListener{
+        binding.downloadButton.setOnClickListener{
             val url = wallModel.urls.full
             val request = DownloadManager.Request(Uri.parse(url))
             request.setDescription("wallModel.author.")
@@ -114,8 +162,6 @@ class FullScreenActivity : AppCompatActivity() {
     }
 
 
-
-
     private fun updateFavButton(isFav: Boolean) {
 
         binding.favButton.setImageResource(
@@ -133,15 +179,14 @@ class FullScreenActivity : AppCompatActivity() {
         }
     }*/
 
-    private fun setWallpaperButton() {
-        binding.btnSetWallpaper.setOnClickListener {
+    private fun setWallpaper() {
+        binding.setWallpaperButton.setOnClickListener {
             val wallpaperManager = WallpaperManager.getInstance(applicationContext)
             binding.imageView.isDrawingCacheEnabled = true
 //        Bitmap bitmap = ((BitmapDrawable)photoView.getDrawable()).getBitmap();
             val bitmap:Bitmap = binding.imageView.drawingCache
             CoroutineScope(Dispatchers.IO).launch {
                 wallpaperManager.setBitmap(bitmap)
-
             }
             Toast.makeText(this, "Wallpaper Change Successfully", Toast.LENGTH_SHORT).show()
 

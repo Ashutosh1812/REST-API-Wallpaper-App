@@ -14,18 +14,18 @@
 
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/moreButton"
         android:layout_width="46dp"
         android:layout_height="46dp"
         android:layout_marginEnd="15dp"
         android:background="@drawable/bg_item_card"
         android:src="@drawable/ic_more_btn"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
+        app:layout_constraintBottom_toBottomOf="@+id/backButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/btnTextColorPrimary" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/backButton"
         android:layout_width="46dp"
         android:layout_marginTop="50dp"
         android:layout_height="46dp"
@@ -44,17 +44,17 @@
         android:background="@drawable/bg_item_card"
         android:src="@drawable/ic_baseline_favorite_border_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageButton"
+        app:layout_constraintStart_toStartOf="@+id/backButton"
         app:tint="@color/btnTextColorPrimary" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnSetWallpaper"
+        android:id="@+id/setWallpaperButton"
         android:layout_width="0dp"
         android:layout_height="46dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         app:layout_constraintBottom_toBottomOf="@id/favButton"
-        app:layout_constraintEnd_toStartOf="@+id/btnDownload"
+        app:layout_constraintEnd_toStartOf="@+id/downloadButton"
         app:layout_constraintStart_toEndOf="@+id/favButton"
         android:textSize="16sp"
         android:background="@drawable/bg_item_card"
@@ -63,12 +63,12 @@
 
 
     <ImageButton
-        android:id="@+id/btnDownload"
+        android:id="@+id/downloadButton"
         android:layout_width="46dp"
         android:layout_height="46dp"
         android:background="@drawable/bg_item_card"
         android:src="@drawable/ic_download_btn"
         app:layout_constraintBottom_toBottomOf="@id/favButton"
-        app:layout_constraintEnd_toEndOf="@+id/imageButton2"
+        app:layout_constraintEnd_toEndOf="@+id/moreButton"
         app:tint="@color/btnTextColorPrimary" />
 </androidx.constraintlayout.widget.ConstraintLayout>

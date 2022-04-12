@@ -55,9 +55,11 @@
         <entry key="app/src/main/res/layout/home_category_item_layout.xml" value="0.2545289855072464" />
         <entry key="app/src/main/res/layout/item_layout_image.xml" value="0.2504528985507246" />
         <entry key="app/src/main/res/layout/item_wall_grid.xml" value="0.23641304347826086" />
+        <entry key="app/src/main/res/layout/more_dialog_layout.xml" value="0.23641304347826086" />
         <entry key="app/src/main/res/layout/themes.xml" value="0.26145833333333335" />
         <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.6357421875" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.28125" />
+        <entry key="app/src/main/res/menu/more_menu.xml" value="0.27291666666666664" />
       </map>
     </option>
   </component>
