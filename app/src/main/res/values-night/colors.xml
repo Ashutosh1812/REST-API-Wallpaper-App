@@ -7,12 +7,15 @@
     <color name="purple_500">#FF6200EE</color>
     <color name="black">#FF000000</color>
     <color name="colorPrimary">#111111</color>
-    <color name="btnColorPrimary">#e0e0e0</color>
-    <color name="btnTextColorPrimary">#111111</color>
-    <color name="btnRippleColorPrimary">#90000000</color>
+
 
     <color name="toolbarColor">#111111</color>
 
+    <color name="rippleColorPrimary">#90ffffff</color>
+    <color name="rippleColorSecondary">#90ffffff</color>
+
+    <color name="colorSecondary">#111111</color>
+    <color name="colorTertiary">#ffffff</color>
 
     <color name="status_bar">#111111</color>
     <color name="navigation_bar">#090C0E</color>

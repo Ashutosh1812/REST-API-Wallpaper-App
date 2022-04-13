@@ -73,7 +73,7 @@ class FullScreenActivity : AppCompatActivity() {
         setWallpaper()
         downloadWallpaper()
         backButton()
-//        showDialog("hdf")
+        showDialog()
 //        applyBlurView(binding.blurryView,0.5f)
     }
 
@@ -82,33 +82,24 @@ class FullScreenActivity : AppCompatActivity() {
     }
 
 
-        private fun showDialog(title: String) {
-            val dialogBuilder = AlertDialog.Builder(applicationContext, R.style.ThemeOverlay_Material3_MaterialAlertDialog)
-            val inflater = this.layoutInflater
-            val dialogView = inflater.inflate(R.layout.more_dialog_layout, null)
-            dialogBuilder.setView(dialogView)
-//            val radioGroupChat = dialogView.radio_group_chat
-//            dialogView.radioButton_user_chat.isChecked = true
-            /*dialogBuilder.setPositiveButton(getString("R.string.ok_text".toInt()), object : DialogInterface.OnClickListener {
-                override fun onClick(dialog: DialogInterface, id: Int) {
-                   *//* when (radioGroupChat.checkedRadioButtonId) {
-                        R.id.radioButton_user_chat -> {
-                            (activity as HomeActivity).replaceFragment(MySkippersFragment.getInstance(isFromChat = true))
-                        }
-                        R.id.radioButton_circle_chat -> {
-                            (activity as HomeActivity).replaceFragment(PickCircleFragment.getInstance(
-                                PickCircleFragment.NEW_CIRCLE_CHAT), true)
-                        }
-                    }*//*
-                }
-            })
-            dialogBuilder.setNegativeButton(getString("Cancle".toInt()), object : DialogInterface.OnClickListener {
-                override fun onClick(dialog: DialogInterface?, which: Int) {
-                }
-            })*/
+        private fun showDialog() {
+            binding.moreButton.setOnClickListener{
 
-            val alertDialog = dialogBuilder.create()
-            alertDialog.show()
+
+                val builder = AlertDialog.Builder(this,R.style.CustomAlertDialog)
+                    .create()
+                val view = layoutInflater.inflate(R.layout.more_dialog_layout,null)
+                val textViewTitle = view.findViewById<TextView>(R.id.textSource)
+                val textViewBody = view.findViewById<TextView>(R.id.textAuthorName)
+                builder.setView(view)
+                textViewTitle.text = wallModel.source
+                textViewBody.text = wallModel.author.name
+                builder.setCanceledOnTouchOutside(true)
+                builder.show()
+
+
+            }
+
 
     }
 
@@ -126,7 +117,7 @@ class FullScreenActivity : AppCompatActivity() {
         binding.downloadButton.setOnClickListener{
             val url = wallModel.urls.full
             val request = DownloadManager.Request(Uri.parse(url))
-            request.setDescription("wallModel.author.")
+//            request.setDescription("wallModel.author.")
             request.setTitle("Wallpaper_${wallModel.wallId}")
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 request.allowScanningByMediaScanner()
@@ -134,7 +125,7 @@ class FullScreenActivity : AppCompatActivity() {
             }
             request.setDestinationInExternalPublicDir(
                 Environment.DIRECTORY_PICTURES,
-                "Wall.png"
+                "Wallpaper${wallModel.wallId}.png"
             )
 
             val manager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
