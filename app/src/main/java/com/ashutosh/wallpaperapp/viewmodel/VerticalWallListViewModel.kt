@@ -27,12 +27,12 @@ class VerticalWallListViewModel @Inject constructor(private val wallpapersReposi
 
 
 
-    fun getWallpaper(orderBy:String, category: String?=null) {
+    fun getWallpaper(orderBy:String, category: String?=null, color: String?=null) {
 //        if (_list.isNotEmpty()) return
         _liveIsLoading.value = true
 
         viewModelScope.launch(Dispatchers.IO) {
-            val response = wallpapersRepository.getWallpapers(page = page,orderBy = orderBy, category = category)
+            val response = wallpapersRepository.getWallpapers(page = page,orderBy = orderBy, category = category, color = color)
             Log.d("TAG", "onCreate: $response")
             if (response.isSuccessful){
                 if (loading) {
@@ -41,7 +41,6 @@ class VerticalWallListViewModel @Inject constructor(private val wallpapersReposi
                     page++
                     // Do pagination.. i.e. fetch new data
 //                            Toast.makeText(baseContext, ""+page, Toast.LENGTH_SHORT).show()
-
                 }
                 val wallpaperPageModel = response.body()
                 Log.d("TAG", "onCreate: $wallpaperPageModel")

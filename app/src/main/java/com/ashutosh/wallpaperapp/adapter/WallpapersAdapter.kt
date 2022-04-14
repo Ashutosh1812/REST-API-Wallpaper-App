@@ -38,7 +38,7 @@ class WallpapersAdapter(
         val wallpaperModelItem = list[position]
 
         val mlt = MultiTransformation(
-            RotationTransform(wallpaperModelItem.rotation.toFloat() ?: 0f),
+//        RotationTransform(wallpaperModelItem.rotation.toFloat()),
             CenterCrop(),
             RoundedCornersTransformation(
                 cardRadius.roundToInt(),

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
     tools:context=".ui.fragments.HomeFragment"
     tools:ignore="ScrollViewCount">
 
@@ -16,7 +17,7 @@
 
         <TextView
             style="@style/CustomTextView"
-            android:text="NewestWallpaper" />
+            android:text="Newest Wallpaper" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/container1"
@@ -30,7 +31,7 @@
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/categoryContainer"
             android:layout_width="match_parent"
-            android:layout_height="60dp" />
+            android:layout_height="65dp" />
 
         <TextView
             style="@style/CustomTextView"
@@ -39,7 +40,7 @@
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/colorContainer"
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="65dp" />
 
         <TextView
             style="@style/CustomTextView"

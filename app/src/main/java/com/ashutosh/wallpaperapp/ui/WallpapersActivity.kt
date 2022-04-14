@@ -22,7 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class WallpapersActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWallpapersBinding
     private var orderBy: String = "newest"
-    private var page: Int = 1
     private val hwlViewModel: VerticalWallListViewModel by viewModels()
     var model: String? = null
     var isLoading = true
@@ -34,17 +33,17 @@ class WallpapersActivity : AppCompatActivity() {
         binding = ActivityWallpapersBinding.inflate(layoutInflater)
         setContentView(binding.root)
         model = intent.getStringExtra("wall")
-
+        binding.toolbar.setNavigationOnClickListener{
+            finish()
+        }
         binding.toolbarTitle.text = model
         setupRecyclerView()
         fetchWallpapers()
-//        hwlViewModel.getWallpaper(2, orderBy, model)
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun fetchWallpapers() {
-        hwlViewModel.getWallpaper(orderBy, model)
+        hwlViewModel.getWallpaper(orderBy, model,model)
 
         hwlViewModel.liveIsLoading.observe(this) {
 
@@ -56,10 +55,6 @@ class WallpapersActivity : AppCompatActivity() {
                 }
                 false -> {
                     Log.d("TAG", "fun: ${hwlViewModel.list}")
-
-//                    Toast.makeText(this, "Notify"+hwlViewModel.list, Toast.LENGTH_LONG).show()
-//                    binding.tv.text = hwlViewModel.list.toString()
-
                     verticalWallpapersAdapter.notifyDataSetChanged()
 
                     binding.progressBar.visibility = View.GONE

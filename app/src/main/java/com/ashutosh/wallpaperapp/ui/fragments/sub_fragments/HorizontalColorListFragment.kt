@@ -1,5 +1,6 @@
 package com.ashutosh.wallpaperapp.ui.fragments.sub_fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ashutosh.wallpaperapp.adapter.ColorAdapter
 import com.ashutosh.wallpaperapp.databinding.FragmentHorizontalColorListBinding
 import com.ashutosh.wallpaperapp.network.ListStatus
+import com.ashutosh.wallpaperapp.ui.WallpapersActivity
 import com.ashutosh.wallpaperapp.utils.BounceEdgeEffectFactory
 import com.ashutosh.wallpaperapp.viewmodel.HorizontalColorListViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,7 +53,12 @@ class HorizontalColorListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = ColorAdapter(requireContext(), hclViewModel.list)
+        adapter = ColorAdapter(requireContext(), hclViewModel.list){
+            startActivity(Intent(requireContext(), WallpapersActivity::class.java).apply {
+                putExtra("wall", it)
+
+            })
+        }
 
         binding.recyclerView.apply {
             layoutManager =

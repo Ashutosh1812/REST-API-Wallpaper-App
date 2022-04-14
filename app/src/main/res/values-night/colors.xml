@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="textPrimary">#ffffff</color>
+    <color name="textPrimary">#E4E4E4</color>
     <color name="textSecondary">#444444</color>
     <color name="textTertiary">#707070</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="black">#FF000000</color>
     <color name="colorPrimary">#111111</color>
-
+    <color name="colorSecondary">#222222</color>
+    <color name="colorTertiary">#E4E4E4</color>
 
     <color name="toolbarColor">#111111</color>
 
     <color name="rippleColorPrimary">#90ffffff</color>
     <color name="rippleColorSecondary">#90ffffff</color>
 
-    <color name="colorSecondary">#111111</color>
-    <color name="colorTertiary">#ffffff</color>
+
 
     <color name="status_bar">#111111</color>
     <color name="navigation_bar">#090C0E</color>
+    <color name="card_bg_dull">#222222</color>
 
 </resources>

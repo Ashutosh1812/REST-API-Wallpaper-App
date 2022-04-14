@@ -10,6 +10,7 @@
         <entry key="..\:/Users/Ashutosh/Documents/GitHub/REST-API-Wallpaper-App/app/src/main/res/layout/item_layout_image.xml" value="0.27291666666666664" />
         <entry key="app/src/main/res/drawable/arrow_back.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/bg_btn_card.xml" value="0.149" />
+        <entry key="app/src/main/res/drawable/bg_dull_card.xml" value="0.133" />
         <entry key="app/src/main/res/drawable/bg_item_card.xml" value="0.222" />
         <entry key="app/src/main/res/drawable/bg_more_ok_card.xml" value="0.107" />
         <entry key="app/src/main/res/drawable/bottom_sheet_item_card.xml" value="0.2215" />
@@ -37,6 +38,7 @@
         <entry key="app/src/main/res/layout/activity_wallpaers.xml" value="0.2658514492753623" />
         <entry key="app/src/main/res/layout/activity_wallpapers.xml" value="0.26721014492753625" />
         <entry key="app/src/main/res/layout/bottom_sheet_layout.xml" value="0.2427536231884058" />
+        <entry key="app/src/main/res/layout/category_home_item_layout.xml" value="0.23641304347826086" />
         <entry key="app/src/main/res/layout/category_image_layout.xml" value="0.2545289855072464" />
         <entry key="app/src/main/res/layout/category_item_layout.xml" value="0.26313405797101447" />
         <entry key="app/src/main/res/layout/color_item_layout.xml" value="0.24954710144927536" />

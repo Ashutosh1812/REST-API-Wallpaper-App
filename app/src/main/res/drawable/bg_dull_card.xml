@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/btnColorPrimary">
+    android:color="@color/rippleColorPrimary">
     <item android:id="@android:id/background">
         <shape>
-            <corners android:radius="7dp"/>
-            <solid
-                android:color="@color/rippleColorPrimary"/>
+            <corners android:radius="15dp"/>
 
+            <solid
+                android:color="@color/colorSecondary"/>
         </shape>
     </item>
 </ripple>

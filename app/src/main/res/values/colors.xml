@@ -14,7 +14,7 @@
 
 
     <color name="colorPrimary">#e0e0e0</color>
-    <color name="colorSecondary">#ffffff</color>
+    <color name="colorSecondary">#bbcccccc</color>
     <color name="colorTertiary">#ffffff</color>
 
 
@@ -24,6 +24,7 @@
     <color name="rippleColorPrimary">#90000000</color>
     <color name="rippleColorSecondary">#90ffffff</color>
 
+    <color name="card_bg_dull">#B4B2B2</color>
 
 
 
@@ -32,6 +33,7 @@
 
     <color name="status_bar">#e0e0e0</color>
     <color name="navigation_bar">#222222</color>
+    ]
     <color name="bg_dull">#222222</color>
 
 </resources>

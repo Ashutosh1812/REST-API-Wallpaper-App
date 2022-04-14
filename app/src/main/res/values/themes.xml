@@ -2,6 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.WallpaperApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
+        <item name="fontFamily">@font/sanspro_regular</item>
+
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/black</item>
@@ -19,13 +21,14 @@
     </style>
 
     <style name="CustomTextView" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/sanspro_semibold</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">15dp</item>
         <item name="android:layout_marginTop">30dp</item>
         <item name="android:layout_marginBottom">15dp</item>
         <item name="android:textColor">@color/textPrimary</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
 
 
@@ -33,6 +36,9 @@
     <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@drawable/bg_item_card</item>
     </style>
-
+    <style name="ShapeAppearanceOverlay.Avatar" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
+    </style>
 
 </resources>

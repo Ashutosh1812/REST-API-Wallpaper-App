@@ -99,7 +99,7 @@ class HorizontalWallListFragment : Fragment() {
 
     private fun setupRecyclerView() {
         adapter = WallpapersAdapter(requireContext().applicationContext, hwlViewModel.list) {
-            /*Intent(requireContext(),FullScreenActivity::class.java).apply {
+         /*   Intent(requireContext(),FullScreenActivity::class.java).apply {
                 putExtra("wall",it)
             }.also{
                 startActivity(it)
