@@ -18,31 +18,41 @@
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
+            android:text="Home"
             android:textAllCaps="true"
             android:textColor="@color/textPrimary"
             android:textSize="20sp"
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
 
+    <ImageButton
+        android:id="@+id/menuButton"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/bg_item_card"
+        android:onClick="showPopUp"
+        android:src="@drawable/ic_more_btn"
+        app:tint="@color/textPrimary"  />
+
     <FrameLayout
-        android:layout_below="@id/toolbar"
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/menu_bottom"
+        android:layout_below="@id/toolbar"
         tools:ignore="MissingConstraints" />
 
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/menu_bottom"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="@color/bg_dull"
         android:elevation="16dp"
         android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:cnb_menuResource="@menu/bottom_menu" />
+        app:cnb_menuResource="@menu/bottom_menu"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 </RelativeLayout>

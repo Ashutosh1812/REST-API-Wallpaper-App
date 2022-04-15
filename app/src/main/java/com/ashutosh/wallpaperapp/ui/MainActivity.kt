@@ -2,8 +2,11 @@ package com.ashutosh.wallpaperapp.ui
 
 import android.content.res.Resources
 import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import com.ashutosh.wallpaperapp.R
 import com.ashutosh.wallpaperapp.databinding.ActivityMainBinding
@@ -56,20 +59,26 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.home -> {
                     switchFragment(fragement)
-                    binding.toolbarTitle.text = "Wallpaper App"
+                    binding.toolbarTitle.text = "Home"
+                   binding.menuButton.visibility = View.VISIBLE
+
                 }
                 R.id.category -> {
                     switchFragment(CategoryFragment())
                     binding.toolbarTitle.text = "Category"
+                    binding.menuButton.visibility = View.GONE
+
                 }
                 R.id.favorites -> {
                     switchFragment(FavoritesFragment())
                     binding.toolbarTitle.text = "Favorites"
+                    binding.menuButton.visibility = View.GONE
 
                 }
                 R.id.settings -> {
                     switchFragment(CategoryFragment())
                     binding.toolbarTitle.text = "Profile"
+                    binding.menuButton.visibility = View.GONE
 
                 }
             }
@@ -83,6 +92,27 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun showPopUp(view: View) {
+        val popupMenu = PopupMenu(this, view)
+        val inflater = popupMenu.menuInflater
+        inflater.inflate(R.menu.top_menu, popupMenu.menu)
+        popupMenu.show()
+
+        popupMenu.setOnMenuItemClickListener {
+            when(it.itemId) {
+                R.id.appTheme -> {
+                    Toast.makeText(this@MainActivity, it.title, Toast.LENGTH_SHORT).show();
+                }
+                R.id.privacyPolicy -> {
+                    Toast.makeText(this@MainActivity, it.title, Toast.LENGTH_SHORT).show();
+                }
+                R.id.about -> {
+                    Toast.makeText(this@MainActivity, it.title, Toast.LENGTH_SHORT).show();
+                }
+            }
+            true
+        }
+    }
 }
 
 
