@@ -58,7 +58,7 @@ interface ApiService {
     @GET("wall")
     suspend fun getWallpapers(
         @Query("page") page: Int = 1,
-        @Query("order_by") orderBy: String = "newest",
+        @Query("order_by") orderBy: String? = null,
         @Query("s") search: String? = null,
         @Query("category") category: String? = null,
         @Query("color") color: String? = null,

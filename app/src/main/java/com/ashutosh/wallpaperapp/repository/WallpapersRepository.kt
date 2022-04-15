@@ -20,13 +20,13 @@ class WallpapersRepository @Inject constructor(
 
 
     suspend fun getWallpapers(
-        page: Int = 1, orderBy: String = "newest",
+        page: Int = 1, orderBy: String? = "",
         search: String? = null,
         category: String? = null,
         color: String? = null,
     ): Response<WallpaperPageModel> {
 
-        val response = apiService.getWallpapers(page, orderBy, search, category, color)
+        val response = apiService.getWallpapers(page = page, orderBy, search, category, color)
         if (response.isSuccessful){
             if (response.body() != null){
                 for ((index, model) in response.body()!!.data.withIndex()){

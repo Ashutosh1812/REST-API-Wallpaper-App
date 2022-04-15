@@ -25,6 +25,8 @@ class WallpapersActivity : AppCompatActivity() {
     private val hwlViewModel: VerticalWallListViewModel by viewModels()
     var model: String? = null
     var isLoading = true
+    var isScrolling: Boolean = false
+    private val TAG = "Horizontal"
 
     private lateinit var verticalWallpapersAdapter: VerticalWallpapersAdapter
 
@@ -43,7 +45,7 @@ class WallpapersActivity : AppCompatActivity() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun fetchWallpapers() {
-        hwlViewModel.getWallpaper(orderBy, model,model)
+        hwlViewModel.getWallpaper(orderBy, model, model)
 
         hwlViewModel.liveIsLoading.observe(this) {
 
@@ -78,11 +80,47 @@ class WallpapersActivity : AppCompatActivity() {
         }
 
         val manager = GridLayoutManager(applicationContext,3)
-        binding.recyclerView.edgeEffectFactory = BounceEdgeEffectFactory()
+//        binding.recyclerView.edgeEffectFactory = BounceEdgeEffectFactory()
         binding.recyclerView.layoutManager = manager
         binding.recyclerView.adapter = this@WallpapersActivity.verticalWallpapersAdapter
 
+
+
+        var totalItem: Int
+        var currentItem: Int
+       var scrollOutItem: Int
+
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                isScrolling = true
+            }
+        }
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+
+            currentItem = manager.childCount
+            totalItem = manager.itemCount
+            scrollOutItem = manager.findFirstVisibleItemPosition()
+
+            if (isScrolling && currentItem + scrollOutItem == totalItem - 3) {
+
+                hwlViewModel.getWallpaper(orderBy, model, model)
+                //fetch data
+                isScrolling = false
+
+
+            }
+
+
+        }
+    })
+
+
+        /*binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy > 0) {
                     val totalItemCount: Int = manager.itemCount
@@ -91,13 +129,16 @@ class WallpapersActivity : AppCompatActivity() {
 
                     if (isLoading && visibleItemCount + pastVisibleItems >= totalItemCount) {
                         Log.d("sdffsffsfsf","CallBack")
-                        hwlViewModel.getWallpaper(orderBy, model)
-                        isLoading = false
+                        hwlViewModel.getWallpaperColor(model)
+                        Toast.makeText(this@WallpapersActivity, "Call" + totalItemCount, Toast.LENGTH_SHORT).show()
 
                     }
                 }
             }
-        })
+        })*/
+
+
+
 
     }
 }

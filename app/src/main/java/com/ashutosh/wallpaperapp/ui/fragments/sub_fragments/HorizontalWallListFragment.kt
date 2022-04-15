@@ -113,9 +113,6 @@ class HorizontalWallListFragment : Fragment() {
         binding.recyclerView.adapter = this@HorizontalWallListFragment.adapter
         binding.recyclerView.edgeEffectFactory = BounceEdgeEffectFactory(true)
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-
-
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
