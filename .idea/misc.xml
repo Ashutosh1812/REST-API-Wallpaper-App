@@ -8,8 +8,10 @@
         <entry key="..\:/Users/Ashutosh/Documents/GitHub/REST-API-Wallpaper-App/app/src/main/res/layout/activity_main.xml" value="0.1693840579710145" />
         <entry key="..\:/Users/Ashutosh/Documents/GitHub/REST-API-Wallpaper-App/app/src/main/res/layout/fragment_home.xml" value="0.17527173913043478" />
         <entry key="..\:/Users/Ashutosh/Documents/GitHub/REST-API-Wallpaper-App/app/src/main/res/layout/item_layout_image.xml" value="0.27291666666666664" />
+        <entry key="app/src/main/res/drawable-v24/bg_button_card.xml" value="0.1975" />
         <entry key="app/src/main/res/drawable/arrow_back.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/bg_btn_card.xml" value="0.149" />
+        <entry key="app/src/main/res/drawable/bg_button_card.xml" value="0.1975" />
         <entry key="app/src/main/res/drawable/bg_dull_card.xml" value="0.133" />
         <entry key="app/src/main/res/drawable/bg_item_card.xml" value="0.222" />
         <entry key="app/src/main/res/drawable/bg_more_ok_card.xml" value="0.107" />
@@ -59,7 +61,9 @@
         <entry key="app/src/main/res/layout/item_layout_image.xml" value="0.2504528985507246" />
         <entry key="app/src/main/res/layout/item_wall_grid.xml" value="0.23641304347826086" />
         <entry key="app/src/main/res/layout/more_dialog_layout.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/set_wallpaper_layout.xml" value="0.23641304347826086" />
         <entry key="app/src/main/res/layout/themes.xml" value="0.26145833333333335" />
+        <entry key="app/src/main/res/layout/wallpaper_layout.xml" value="0.23641304347826086" />
         <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.6357421875" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.28125" />
         <entry key="app/src/main/res/menu/more_menu.xml" value="0.27291666666666664" />

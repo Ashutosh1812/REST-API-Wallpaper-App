@@ -1,5 +1,6 @@
 package com.ashutosh.wallpaperapp.ui
 
+import android.R.attr.bitmap
 import android.app.Activity
 import android.app.DownloadManager
 import android.app.WallpaperManager
@@ -13,10 +14,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.view.View
 import android.view.ViewOutlineProvider
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -39,6 +37,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -50,7 +49,7 @@ class FullScreenActivity : AppCompatActivity() {
     @Inject
     lateinit var wallpapersRepository: WallpapersRepository
     private lateinit var wallModel: WallpaperModel
-    private  val fullScreenViewModel: FullScreenViewModel by viewModels()
+    private val fullScreenViewModel: FullScreenViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,8 +89,6 @@ class FullScreenActivity : AppCompatActivity() {
     }
 
 
-
-
     private fun showDialog() {
         binding.moreButton.setOnClickListener {
 
@@ -108,7 +105,7 @@ class FullScreenActivity : AppCompatActivity() {
             builder.setView(view)
 //            textViewSource.text = "Unsplash"
 
-            shareButton.setOnClickListener{
+            shareButton.setOnClickListener {
                 val sharingIntent = Intent(Intent.ACTION_SEND)
                 sharingIntent.type = "text/plain"
                 val shareBody = wallModel.urls.raw
@@ -175,12 +172,8 @@ class FullScreenActivity : AppCompatActivity() {
         }
     }
 
-    /*private fun shareWallpaper(){
-        binding.
-    }*/
 
     private fun updateUI() {
-
 
 
         Glide.with(this).load(wallModel.urls.full).into(binding.imageView)
@@ -214,28 +207,106 @@ class FullScreenActivity : AppCompatActivity() {
 
     }
 
-    /* private fun bottomSheet() {
-         BottomSheetBehavior.from(binding.bottomSheet).apply {
-             this.state = BottomSheetBehavior.STATE_COLLAPSED
-         }
-     }*/
-
     private fun setWallpaper() {
+
+
+        val builder = AlertDialog.Builder(this, R.style.CustomAlertDialog)
+            .create()
+        val view = layoutInflater.inflate(R.layout.wallpaper_layout, null)
+
+        val homeButton = view.findViewById<Button>(R.id.homeScreen)
+        val lockButton = view.findViewById<Button>(R.id.lockScreen)
+        val bothButton = view.findViewById<Button>(R.id.bothScreen)
+
+        builder.setView(view)
         binding.setWallpaperButton.setOnClickListener {
 //            fullScreenViewModel.setWall(this,binding.imageView,binding.progressBar)
             val wallpaperManager = WallpaperManager.getInstance(this)
             binding.imageView.isDrawingCacheEnabled = true
 //        Bitmap bitmap = ((BitmapDrawable)photoView.getDrawable()).getBitmap();
             val bitmap: Bitmap = binding.imageView.drawingCache
-//            progressBar.visibility = View.VISIBLE
-            CoroutineScope(Dispatchers.IO).launch {
-                wallpaperManager.setBitmap(bitmap)
-                withContext(Dispatchers.Main) {
-//                    progressBar.visibility = View.GONE
-                    Toast.makeText(this@FullScreenActivity, "Wallpaper Change Successfully", Toast.LENGTH_SHORT).show()
+            homeButton.setOnClickListener {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
+                    CoroutineScope(Dispatchers.IO).launch {
+                        wallpaperManager.setBitmap(
+                            bitmap,
+                            null,
+                            true,
+                            WallpaperManager.FLAG_SYSTEM
+                        )
+                        builder.dismiss()
+                        withContext(Dispatchers.Main) {
+//                    progressBar.visibility = View.GONE
+                            Toast.makeText(
+                                this@FullScreenActivity,
+                                "Wallpaper Change Successfully",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                        }
+                    }
                 }
             }
+
+            lockButton.setOnClickListener {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        wallpaperManager.setBitmap(
+                            bitmap,
+                            null,
+                            false,
+                            WallpaperManager.FLAG_LOCK
+                        )
+                        builder.dismiss()
+                        withContext(Dispatchers.Main) {
+//                    progressBar.visibility = View.GONE
+                            Toast.makeText(
+                                this@FullScreenActivity,
+                                "Wallpaper Change Successfully",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                        }
+                    }
+                }
+            }
+
+            bothButton.visibility = View.GONE
+            bothButton.setOnClickListener {
+                CoroutineScope(Dispatchers.IO).launch {
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        wallpaperManager.setBitmap(
+                            bitmap,
+                            null,
+                            false,
+                            WallpaperManager.FLAG_SYSTEM or WallpaperManager.FLAG_LOCK
+                        )
+                        withContext(Dispatchers.Main) {
+//                    progressBar.visibility = View.GONE
+                            Toast.makeText(
+                                this@FullScreenActivity,
+                                "Wallpaper Change Successfully",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                        }
+                    }else{
+                        wallpaperManager.setBitmap(bitmap)
+                    }
+                }
+            }
+
+
+
+
+
+            builder.setCanceledOnTouchOutside(true)
+            builder.show()
+            //            progressBar.visibility = View.VISIBLE
+
+
         }
 
 

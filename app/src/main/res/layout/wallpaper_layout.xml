@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_marginTop="15dp"
+        android:textSize="16sp"
+        android:textColor="@color/textPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Wallpaper"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/homeScreen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_dull_card"
+
+        android:text="Home Screen"
+        android:textColor="@color/textPrimary"
+        android:textSize="16sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/lockScreen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/bg_dull_card"
+        android:text="Lock Screen"
+        android:textColor="@color/textPrimary"
+        android:textSize="16sp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/homeScreen"
+        app:layout_constraintStart_toStartOf="@+id/homeScreen"
+        app:layout_constraintTop_toBottomOf="@+id/homeScreen" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bothScreen"
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_dull_card"
+        android:text="Both"
+        android:textColor="@color/textPrimary"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/lockScreen"
+        app:layout_constraintStart_toStartOf="@+id/lockScreen"
+        app:layout_constraintTop_toBottomOf="@+id/lockScreen" />
+</androidx.constraintlayout.widget.ConstraintLayout>
