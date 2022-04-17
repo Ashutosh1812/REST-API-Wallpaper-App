@@ -3,6 +3,7 @@ package com.ashutosh.wallpaperapp.repository
 import android.content.Context
 import com.ashutosh.wallpaperapp.models.CategoryModel
 import com.ashutosh.wallpaperapp.models.ColorModel
+import com.ashutosh.wallpaperapp.models.WallListRequestModel
 import com.ashutosh.wallpaperapp.models.WallpaperPageModel
 import com.ashutosh.wallpaperapp.network.ApiService
 import com.ashutosh.wallpaperapp.room.FavDao
@@ -27,6 +28,20 @@ class WallpapersRepository @Inject constructor(
     ): Response<WallpaperPageModel> {
 
         val response = apiService.getWallpapers(page = page, orderBy, search, category, color)
+        if (response.isSuccessful){
+            if (response.body() != null){
+                for ((index, model) in response.body()!!.data.withIndex()){
+                    if (favDao.getFav(model.wallId) != null)
+                        response.body()!!.data[index].isFav = true
+                }
+            }
+        }
+        return response
+    }
+
+
+    suspend fun getWallpapersByList(list: List<Int>): Response<WallpaperPageModel> {
+        val response = apiService.getWallpapersByList(WallListRequestModel(list))
         if (response.isSuccessful){
             if (response.body() != null){
                 for ((index, model) in response.body()!!.data.withIndex()){

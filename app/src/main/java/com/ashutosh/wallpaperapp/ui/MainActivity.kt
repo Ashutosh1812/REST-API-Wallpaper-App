@@ -2,13 +2,15 @@ package com.ashutosh.wallpaperapp.ui
 
 import android.content.res.Resources
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import com.ashutosh.wallpaperapp.R
+import com.ashutosh.wallpaperapp.SwitchTheme
 import com.ashutosh.wallpaperapp.databinding.ActivityMainBinding
 import com.ashutosh.wallpaperapp.ui.fragments.CategoryFragment
 import com.ashutosh.wallpaperapp.ui.fragments.FavoritesFragment
@@ -21,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-    var fragement : HomeFragment? = null
+    var fragement: HomeFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.home -> {
                     switchFragment(fragement)
                     binding.toolbarTitle.text = "Home"
-                   binding.menuButton.visibility = View.VISIBLE
+                    binding.menuButton.visibility = View.VISIBLE
 
                 }
                 R.id.category -> {
@@ -85,7 +87,8 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
-    private fun switchFragment(f:Fragment?){
+
+    private fun switchFragment(f: Fragment?) {
         f?.let {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.frame_layout, it).commit()
@@ -99,9 +102,10 @@ class MainActivity : AppCompatActivity() {
         popupMenu.show()
 
         popupMenu.setOnMenuItemClickListener {
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.appTheme -> {
                     Toast.makeText(this@MainActivity, it.title, Toast.LENGTH_SHORT).show();
+                    selectTheme()
                 }
                 R.id.privacyPolicy -> {
                     Toast.makeText(this@MainActivity, it.title, Toast.LENGTH_SHORT).show();
@@ -112,6 +116,37 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    private fun selectTheme() {
+        val builder = AlertDialog.Builder(this, R.style.CustomAlertDialog)
+            .create()
+        val view = layoutInflater.inflate(R.layout.select_theme_layout, null)
+        val radioGroup = view.findViewById<RadioGroup>(R.id.radioGroup)
+        val systemThemeButton = view.findViewById<RadioButton>(R.id.systemThemeButton)
+        val darkThemeButton = view.findViewById<RadioButton>(R.id.darkThemeButton)
+        val lightThemeButton = view.findViewById<RadioButton>(R.id.lightThemeButton)
+        builder.setView(view)
+
+        radioGroup.setOnCheckedChangeListener { group, checkedId ->
+
+            when (checkedId) {
+                systemThemeButton.id -> SwitchTheme(this).setTheme(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                darkThemeButton.id -> SwitchTheme(this).setTheme(AppCompatDelegate.MODE_NIGHT_YES)
+                lightThemeButton.id -> SwitchTheme(this).setTheme(AppCompatDelegate.MODE_NIGHT_NO)
+                else -> SwitchTheme(this).setTheme(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+
+            }
+            Toast.makeText(
+                applicationContext, " Theme Change Successfully :${checkedId}" + group,
+                Toast.LENGTH_SHORT
+            ).show()
+            builder.dismiss()
+        }
+
+
+        builder.setCanceledOnTouchOutside(true)
+        builder.show()
     }
 }
 

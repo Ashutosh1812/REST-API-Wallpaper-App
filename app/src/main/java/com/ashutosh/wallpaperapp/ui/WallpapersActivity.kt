@@ -28,6 +28,9 @@ class WallpapersActivity : AppCompatActivity() {
     var isScrolling: Boolean = false
     private val TAG = "Horizontal"
 
+   private var totalItem: Int = 0
+    private var currentItem: Int = 0
+    private var scrollOutItem: Int = 0
     private lateinit var verticalWallpapersAdapter: VerticalWallpapersAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +53,9 @@ class WallpapersActivity : AppCompatActivity() {
         hwlViewModel.liveIsLoading.observe(this) {
 
             verticalWallpapersAdapter.notifyDataSetChanged()
+//            verticalWallpapersAdapter.notifyItemRangeInserted(currentItem,totalItem)
+//            verticalWallpapersAdapter.notifyItemRangeChanged()
+            Toast.makeText(this, ""+ hwlViewModel.list.size, Toast.LENGTH_SHORT).show()
 
             when (it) {
                 null -> {
@@ -58,6 +64,7 @@ class WallpapersActivity : AppCompatActivity() {
                 false -> {
                     Log.d("TAG", "fun: ${hwlViewModel.list}")
                     verticalWallpapersAdapter.notifyDataSetChanged()
+//                    verticalWallpapersAdapter.notifyItemRangeInserted(currentItem ,totalItem)
 
                     binding.progressBar.visibility = View.GONE
                 }
@@ -86,9 +93,6 @@ class WallpapersActivity : AppCompatActivity() {
 
 
 
-        var totalItem: Int
-        var currentItem: Int
-       var scrollOutItem: Int
 
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
@@ -106,6 +110,7 @@ class WallpapersActivity : AppCompatActivity() {
             totalItem = manager.itemCount
             scrollOutItem = manager.findFirstVisibleItemPosition()
 
+//            Toast.makeText(this@WallpapersActivity, ""+totalItem, Toast.LENGTH_SHORT).show()
             if (isScrolling && currentItem + scrollOutItem == totalItem - 3) {
 
                 hwlViewModel.getWallpaper(orderBy, model, model)

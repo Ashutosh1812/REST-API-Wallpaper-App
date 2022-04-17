@@ -40,6 +40,7 @@ class HorizontalWallListViewModel @Inject constructor(private val wallpapersRepo
                 withContext(Dispatchers.Main){
                     _list.addAll(wallpaperPageModel!!.data)
                     _liveIsLoading.value = false
+
                 }
             }
         }

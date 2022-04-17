@@ -1,21 +1,14 @@
 package com.ashutosh.wallpaperapp.viewmodel
 
-import android.app.WallpaperManager
-import android.content.Context
-import android.graphics.Bitmap
-import android.view.View
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ashutosh.wallpaperapp.models.WallpaperModel
-import com.ashutosh.wallpaperapp.repository.CategoryColorRepository
 import com.ashutosh.wallpaperapp.repository.WallpapersRepository
-import com.bumptech.glide.Glide
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -23,24 +16,26 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FullScreenViewModel @Inject constructor(
-    private val wallpapersRepository: WallpapersRepository,
-    private val categoryColorRepository: CategoryColorRepository
+    private val wallpapersRepository: WallpapersRepository
 ) : ViewModel() {
 
 
-    private val _liveIsLoading: MutableLiveData<Boolean> = MutableLiveData(null)
-    val liveIsLoading :LiveData<Boolean> = _liveIsLoading
-//    private val _listObserver = MutableLiveData<Boolean>()
-//    val listObserver: LiveData<Boolean> = _listObserver
-private fun updateUI(context: Context, wallModel: WallpaperModel,imageView: ImageView) {
+    private val _wallModel: MutableLiveData<WallpaperModel> = MutableLiveData(null)
+    val wallModel: LiveData<WallpaperModel> = _wallModel
+    fun loadSharedWall(data: Uri) {
+        val id = data.lastPathSegment?.toIntOrNull() ?: return
 
-
-}
-
-
-     fun setWall(context: Context, imageView: ImageView, progressBar: ProgressBar) {
-
-
+        Log.d("tags", "$id i ")
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = wallpapersRepository.getWallpapersByList(listOf(id))
+            if (response.isSuccessful && response.body() != null){
+                val wallpaperPageModel = response.body()!!
+                Log.d("TAG", "onCreate: $wallpaperPageModel")
+                withContext(Dispatchers.Main){
+                    _wallModel.value = wallpaperPageModel.data[0]
+                }
+            }
+        }
     }
 
 

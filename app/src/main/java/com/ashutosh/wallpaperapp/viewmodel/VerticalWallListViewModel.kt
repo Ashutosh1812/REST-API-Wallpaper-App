@@ -20,7 +20,7 @@ class VerticalWallListViewModel @Inject constructor(private val wallpapersReposi
     val list : List<WallpaperModel> = _list
     private val _liveIsLoading: MutableLiveData<Boolean> = MutableLiveData(null)
     val liveIsLoading :LiveData<Boolean> = _liveIsLoading
-    private var page:Int = 1
+    var page:Int = 1
 
     fun getWallpaper(orderBy:String, category: String?=null, color: String?=null) {
 //        if (_list.isNotEmpty()) return

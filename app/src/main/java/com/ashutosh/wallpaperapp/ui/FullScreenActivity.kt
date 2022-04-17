@@ -25,6 +25,7 @@ import com.ashutosh.wallpaperapp.databinding.ActivityFullScreenBinding
 import com.ashutosh.wallpaperapp.models.WallpaperModel
 import com.ashutosh.wallpaperapp.repository.WallpapersRepository
 import com.ashutosh.wallpaperapp.viewmodel.FullScreenViewModel
+import com.ashutosh.wallpaperapp.viewmodel.VerticalWallListViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -48,8 +49,8 @@ class FullScreenActivity : AppCompatActivity() {
 
     @Inject
     lateinit var wallpapersRepository: WallpapersRepository
+    private val hwlViewModel: FullScreenViewModel by viewModels()
     private lateinit var wallModel: WallpaperModel
-    private val fullScreenViewModel: FullScreenViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +75,13 @@ class FullScreenActivity : AppCompatActivity() {
         } else
             fetchWallpaper(data!!)
 
+        hwlViewModel.wallModel.observe(this){
+            it?.let {
+                wallModel = it
+                updateUI()
+            }
+        }
+
 
 //        bottomSheet()
         setWallpaper()
@@ -85,7 +93,7 @@ class FullScreenActivity : AppCompatActivity() {
     }
 
     private fun fetchWallpaper(data: Uri) {
-
+        hwlViewModel.loadSharedWall(data)
     }
 
 
@@ -103,14 +111,15 @@ class FullScreenActivity : AppCompatActivity() {
             val authorImage = view.findViewById<ImageView>(R.id.authorImage)
             val shareButton = view.findViewById<ImageButton>(R.id.shareButton)
             builder.setView(view)
-//            textViewSource.text = "Unsplash"
 
             shareButton.setOnClickListener {
                 val sharingIntent = Intent(Intent.ACTION_SEND)
                 sharingIntent.type = "text/plain"
-                val shareBody = wallModel.urls.raw
                 sharingIntent.putExtra(Intent.EXTRA_SUBJECT, wallModel.urls.small)
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
+                sharingIntent.putExtra(
+                    Intent.EXTRA_TEXT,
+                    "Wallpaper App \n http://wallpaper.onetakego.com/id/${wallModel.wallId}"
+                )
                 startActivity(Intent.createChooser(sharingIntent, "Share via"))
             }
 
@@ -272,7 +281,7 @@ class FullScreenActivity : AppCompatActivity() {
                 }
             }
 
-            bothButton.visibility = View.GONE
+//            bothButton.visibility = View.GONE
             bothButton.setOnClickListener {
                 CoroutineScope(Dispatchers.IO).launch {
 
@@ -281,7 +290,6 @@ class FullScreenActivity : AppCompatActivity() {
                             bitmap,
                             null,
                             false,
-                            WallpaperManager.FLAG_SYSTEM or WallpaperManager.FLAG_LOCK
                         )
                         withContext(Dispatchers.Main) {
 //                    progressBar.visibility = View.GONE
@@ -292,15 +300,11 @@ class FullScreenActivity : AppCompatActivity() {
                             ).show()
 
                         }
-                    }else{
+                    } else {
                         wallpaperManager.setBitmap(bitmap)
                     }
                 }
             }
-
-
-
-
 
             builder.setCanceledOnTouchOutside(true)
             builder.show()
@@ -308,11 +312,7 @@ class FullScreenActivity : AppCompatActivity() {
 
 
         }
-
-
     }
-
-
     fun Activity.applyBlurView(blurView: BlurView, radius: Float) {
         val decorView: View = window.decorView
         val windowBackground: Drawable = decorView.background

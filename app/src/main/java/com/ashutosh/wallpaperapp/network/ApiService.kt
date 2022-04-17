@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import com.ashutosh.wallpaperapp.BuildConfig
 import com.ashutosh.wallpaperapp.models.CategoryModel
 import com.ashutosh.wallpaperapp.models.ColorModel
+import com.ashutosh.wallpaperapp.models.WallListRequestModel
 import com.ashutosh.wallpaperapp.models.WallpaperPageModel
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -14,7 +15,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
 import java.io.File
 
@@ -63,6 +66,11 @@ interface ApiService {
         @Query("category") category: String? = null,
         @Query("color") color: String? = null,
     ): Response<WallpaperPageModel>
+
+    @POST("wall/list")
+    suspend fun getWallpapersByList(
+        @Body body: WallListRequestModel
+    ):Response<WallpaperPageModel>
 
     @GET("list/category")
     suspend fun getCategory(

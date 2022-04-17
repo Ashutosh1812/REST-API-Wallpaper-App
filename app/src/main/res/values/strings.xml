@@ -2,4 +2,8 @@
     <string name="app_name">Wallpaper App</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+        <string name="checked">checked</string>
+        <string name="unchecked">unchecked</string>
+
 </resources>
