@@ -1,6 +1,6 @@
 # REST API Wallpaper App
 This is a wallpaper app.
-API - https://justwallpapers.rasgyatva.in/api/
+<div>API - https://justwallpapers.rasgyatva.in/api/</div>
 
 - Download Wallpaper ️
 - Theme(Dark/Light)
