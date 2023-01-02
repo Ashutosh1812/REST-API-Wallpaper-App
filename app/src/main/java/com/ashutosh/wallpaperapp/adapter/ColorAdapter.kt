@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ashutosh.wallpaperapp.R
 import com.ashutosh.wallpaperapp.databinding.CategoryHomeItemLayoutBinding
 import com.ashutosh.wallpaperapp.databinding.ColorItemLayoutBinding
+import com.ashutosh.wallpaperapp.databinding.HomeItemColorLayoutBinding
 import com.ashutosh.wallpaperapp.models.CategoryModel
 import com.ashutosh.wallpaperapp.models.ColorModel
 import com.bumptech.glide.Glide
@@ -21,11 +22,11 @@ import kotlin.math.roundToInt
 class ColorAdapter(val context: Context, private val list: List<ColorModel>, private val listener: (colorName: String) -> Unit) :
     RecyclerView.Adapter<ColorAdapter.ItemViewHolder>() {
 
-    class ItemViewHolder(val binding: CategoryHomeItemLayoutBinding) :
+    class ItemViewHolder(val binding: HomeItemColorLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        return ItemViewHolder(CategoryHomeItemLayoutBinding.inflate(LayoutInflater.from(context)))
+        return ItemViewHolder(HomeItemColorLayoutBinding.inflate(LayoutInflater.from(context)))
 
     }
 
