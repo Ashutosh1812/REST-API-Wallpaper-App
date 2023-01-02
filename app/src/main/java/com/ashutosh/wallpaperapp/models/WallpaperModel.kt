@@ -36,7 +36,6 @@ data class WallpaperModel(
     @SerializedName("urls")
     val urls: Urls,
     @SerializedName("wall_id")
-    val wallId: Int,
-    var isFav:Boolean = false
+    val wallId: Int
 
 ):Serializable

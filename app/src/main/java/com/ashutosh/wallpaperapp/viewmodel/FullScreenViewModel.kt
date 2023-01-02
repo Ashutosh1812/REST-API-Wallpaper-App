@@ -22,6 +22,10 @@ class FullScreenViewModel @Inject constructor(
 
     private val _wallModel: MutableLiveData<WallpaperModel> = MutableLiveData(null)
     val wallModel: LiveData<WallpaperModel> = _wallModel
+
+    private val _isFav: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isFav: LiveData<Boolean> = _isFav
+
     fun loadSharedWall(data: Uri) {
         val id = data.lastPathSegment?.toIntOrNull() ?: return
 
@@ -38,5 +42,24 @@ class FullScreenViewModel @Inject constructor(
         }
     }
 
+    fun isFav(wallId: Int){
+        viewModelScope.launch {
+            _isFav.value = wallpapersRepository.isFav(wallId)
+        }
+    }
+
+    fun addToFav(wallId: Int){
+        viewModelScope.launch {
+            wallpapersRepository.addToFav(wallId)
+            _isFav.value = true
+        }
+    }
+
+    fun removeToFav(wallId: Int){
+        viewModelScope.launch {
+            wallpapersRepository.removeToFav(wallId)
+            _isFav.value = false
+        }
+    }
 
 }

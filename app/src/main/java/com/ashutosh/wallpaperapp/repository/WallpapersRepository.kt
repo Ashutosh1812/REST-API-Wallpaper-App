@@ -1,15 +1,10 @@
 package com.ashutosh.wallpaperapp.repository
 
-import android.content.Context
-import com.ashutosh.wallpaperapp.models.CategoryModel
-import com.ashutosh.wallpaperapp.models.ColorModel
 import com.ashutosh.wallpaperapp.models.WallListRequestModel
 import com.ashutosh.wallpaperapp.models.WallpaperPageModel
 import com.ashutosh.wallpaperapp.network.ApiService
 import com.ashutosh.wallpaperapp.room.FavDao
 import com.ashutosh.wallpaperapp.room.FavEntity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -26,31 +21,12 @@ class WallpapersRepository @Inject constructor(
         category: String? = null,
         color: String? = null,
     ): Response<WallpaperPageModel> {
-
-        val response = apiService.getWallpapers(page = page, orderBy, search, category, color)
-        if (response.isSuccessful){
-            if (response.body() != null){
-                for ((index, model) in response.body()!!.data.withIndex()){
-                    if (favDao.getFav(model.wallId) != null)
-                        response.body()!!.data[index].isFav = true
-                }
-            }
-        }
-        return response
+        return apiService.getWallpapers(page = page, orderBy, search, category, color)
     }
 
 
     suspend fun getWallpapersByList(list: List<Int>): Response<WallpaperPageModel> {
-        val response = apiService.getWallpapersByList(WallListRequestModel(list))
-        if (response.isSuccessful){
-            if (response.body() != null){
-                for ((index, model) in response.body()!!.data.withIndex()){
-                    if (favDao.getFav(model.wallId) != null)
-                        response.body()!!.data[index].isFav = true
-                }
-            }
-        }
-        return response
+        return apiService.getWallpapersByList(WallListRequestModel(list))
     }
 
     suspend fun addToFav(wallId: Int) {
@@ -59,6 +35,10 @@ class WallpapersRepository @Inject constructor(
 
     suspend fun removeToFav(wallId: Int) {
         favDao.delete(FavEntity(wallId))
+    }
+
+    suspend fun isFav(wallId: Int): Boolean {
+        return favDao.getFav(wallId) != null
     }
 
 

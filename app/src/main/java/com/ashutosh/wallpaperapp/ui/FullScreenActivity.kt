@@ -56,8 +56,6 @@ import kotlin.math.roundToInt
 class FullScreenActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFullScreenBinding
 
-    @Inject
-    lateinit var wallpapersRepository: WallpapersRepository
     private val hwlViewModel: FullScreenViewModel by viewModels()
     private lateinit var wallModel: WallpaperModel
     private var mInterstitialAd: InterstitialAd? = null
@@ -74,7 +72,7 @@ class FullScreenActivity : AppCompatActivity() {
 
         InterstitialAd.load(
             this,
-            "ca-app-pub-2012508283590944/4044885353",
+            getString(R.string.interstitial_wall_close),
             adRequest,
             object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(adError: LoadAdError) {
@@ -90,31 +88,6 @@ class FullScreenActivity : AppCompatActivity() {
 
 
             })
-
-        mInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
-
-            override fun onAdDismissedFullScreenContent() {
-                // Called when ad is dismissed.
-//                Log.d(TAG, "Ad dismissed fullscreen content.")
-                InterstitialAd.load(this@FullScreenActivity, "ca-app-pub-2012508283590944/4044885353", adRequest, object : InterstitialAdLoadCallback() {
-                    override fun onAdFailedToLoad(adError: LoadAdError) {
-                        adError?.toString()?.let { Log.d(TAG, it) }
-                        mInterstitialAd = null
-                    }
-
-                    override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                        Log.d(TAG, "Ad was loaded.")
-                        mInterstitialAd = interstitialAd
-                    }
-
-
-
-                })
-            }
-
-
-        }
-
 
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -135,6 +108,7 @@ class FullScreenActivity : AppCompatActivity() {
         } else
             fetchWallpaper(data!!)
 //        binding.progressBar.visibility = View.GONE
+
 
 
         hwlViewModel.wallModel.observe(this) {
@@ -276,34 +250,26 @@ class FullScreenActivity : AppCompatActivity() {
         ).into(binding.imageView)
 //
 
+        hwlViewModel.isFav.observe(this){
+            binding.favButton.setImageResource(
+                if (it)
+                    R.drawable.ic_baseline_favorite_24
+                else
+                    R.drawable.ic_baseline_favorite_border_24
+            )
+        }
+        hwlViewModel.isFav(wallModel.wallId)
 
-        updateFavButton(wallModel.isFav)
         binding.favButton.setOnClickListener {
-            CoroutineScope(Dispatchers.Main).launch {
-                if (wallModel.isFav) {
-                    wallpapersRepository.removeToFav(wallModel.wallId)
-                    wallModel.isFav = false
-                } else {
-                    wallpapersRepository.addToFav(wallModel.wallId)
-                    wallModel.isFav = true
-                }
-                updateFavButton(wallModel.isFav)
+            if (hwlViewModel.isFav.value == true){
+                hwlViewModel.removeToFav(wallModel.wallId)
+            } else {
+                hwlViewModel.addToFav(wallModel.wallId)
             }
 
         }
     }
 
-
-    private fun updateFavButton(isFav: Boolean) {
-
-        binding.favButton.setImageResource(
-            if (isFav)
-                R.drawable.ic_baseline_favorite_24
-            else
-                R.drawable.ic_baseline_favorite_border_24
-        )
-
-    }
 
     private fun setWallpaper() {
 
