@@ -13,13 +13,13 @@ import com.ashutosh.wallpaperapp.databinding.FragmentHorizontalColorListBinding
 import com.ashutosh.wallpaperapp.network.ListStatus
 import com.ashutosh.wallpaperapp.ui.WallpapersActivity
 import com.ashutosh.wallpaperapp.utils.BounceEdgeEffectFactory
-import com.ashutosh.wallpaperapp.viewmodel.HorizontalColorListViewModel
+import com.ashutosh.wallpaperapp.viewmodel.ColorViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HorizontalColorListFragment : Fragment() {
     private lateinit var binding: FragmentHorizontalColorListBinding
-    private val hclViewModel: HorizontalColorListViewModel by viewModels()
+    private val hclViewModel: ColorViewModel by viewModels()
     lateinit var adapter: ColorAdapter
 
 
@@ -55,7 +55,7 @@ class HorizontalColorListFragment : Fragment() {
     private fun setupRecyclerView() {
         adapter = ColorAdapter(requireContext(), hclViewModel.list){
             startActivity(Intent(requireContext(), WallpapersActivity::class.java).apply {
-                putExtra("wall", it)
+                putExtra("color", it)
 
             })
         }

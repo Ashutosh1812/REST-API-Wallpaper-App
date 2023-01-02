@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,13 +13,13 @@ import com.ashutosh.wallpaperapp.databinding.FragmentHorizontalCategoryListBindi
 import com.ashutosh.wallpaperapp.network.ListStatus
 import com.ashutosh.wallpaperapp.ui.WallpapersActivity
 import com.ashutosh.wallpaperapp.utils.BounceEdgeEffectFactory
-import com.ashutosh.wallpaperapp.viewmodel.HorizontalCategoryListViewModel
+import com.ashutosh.wallpaperapp.viewmodel.CategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HorizontalCategoryListFragment : Fragment() {
     private lateinit var binding: FragmentHorizontalCategoryListBinding
-    private val hclViewModel: HorizontalCategoryListViewModel by viewModels()
+    private val hclViewModel: CategoryViewModel by viewModels()
     lateinit var homeAdapter: CategoriesHomeAdapter
 
 
@@ -58,7 +57,7 @@ class HorizontalCategoryListFragment : Fragment() {
     private fun setupRecyclerView() {
         homeAdapter = CategoriesHomeAdapter(requireContext(), hclViewModel.list){
             startActivity(Intent(requireContext(), WallpapersActivity::class.java).apply {
-                putExtra("wall", it)
+                putExtra("category", it)
             })
         }
 

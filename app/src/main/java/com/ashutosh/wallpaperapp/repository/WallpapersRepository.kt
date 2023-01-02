@@ -29,6 +29,19 @@ class WallpapersRepository @Inject constructor(
         return apiService.getWallpapersByList(WallListRequestModel(list))
     }
 
+    /*suspend fun getFavList(): List<Int> {
+        val newList = ArrayList<Int>()
+
+        for (item in favDao.getAllFav()){
+            newList.add(item.wallId)
+        }
+
+        return newList
+    }*/
+
+    suspend fun getFavList()= favDao.getAllFav().map { it.wallId }
+
+
     suspend fun addToFav(wallId: Int) {
         favDao.insert(FavEntity(wallId))
     }

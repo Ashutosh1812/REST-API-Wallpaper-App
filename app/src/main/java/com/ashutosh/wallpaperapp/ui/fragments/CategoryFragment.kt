@@ -1,28 +1,25 @@
 package com.ashutosh.wallpaperapp.ui.fragments
 
-import android.R
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ashutosh.wallpaperapp.adapter.CategoriesAdapter
 import com.ashutosh.wallpaperapp.databinding.FragmentCategoryBinding
 import com.ashutosh.wallpaperapp.network.ListStatus
 import com.ashutosh.wallpaperapp.ui.WallpapersActivity
-import com.ashutosh.wallpaperapp.viewmodel.HorizontalCategoryListViewModel
+import com.ashutosh.wallpaperapp.viewmodel.CategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class CategoryFragment : Fragment() {
     private lateinit var binding: FragmentCategoryBinding
-    private val hclViewModel: HorizontalCategoryListViewModel by viewModels()
+    private val hclViewModel: CategoryViewModel by viewModels()
     lateinit var categoriesAdapter: CategoriesAdapter
 
 
@@ -63,7 +60,7 @@ class CategoryFragment : Fragment() {
     private fun setupRecyclerView() {
         categoriesAdapter = CategoriesAdapter(requireContext(), hclViewModel.list){
             startActivity(Intent(requireContext(), WallpapersActivity::class.java).apply {
-                putExtra("wall", it)
+                putExtra("category", it)
 
 
         })

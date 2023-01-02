@@ -23,14 +23,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class WallpapersActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWallpapersBinding
-    private var orderBy: String = "newest"
     private val hwlViewModel: VerticalWallListViewModel by viewModels()
-    var model: String? = null
     var isLoading = true
     var isScrolling: Boolean = false
     private val TAG = "Horizontal"
 
-   private var totalItem: Int = 0
+    private var totalItem: Int = 0
     private var currentItem: Int = 0
     private var scrollOutItem: Int = 0
     private lateinit var verticalWallpapersAdapter: VerticalWallpapersAdapter
@@ -44,25 +42,28 @@ class WallpapersActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
 
-        model = intent.getStringExtra("wall")
-        binding.toolbar.setNavigationOnClickListener{
+        val category = intent.getStringExtra("category")
+        val color = intent.getStringExtra("color")
+        val orderBy = "newest"
+        binding.toolbar.setNavigationOnClickListener {
             finish()
         }
-        binding.toolbarTitle.text = model
+        hwlViewModel.init(category = category, color = color, orderBy = orderBy)
+        binding.toolbarTitle.text = category ?: color ?: "Popular Wallpapers"
         setupRecyclerView()
         fetchWallpapers()
+
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun fetchWallpapers() {
-        hwlViewModel.getWallpaper(orderBy, model, model)
+        hwlViewModel.getWallpaper()
 
         hwlViewModel.liveIsLoading.observe(this) {
 
             verticalWallpapersAdapter.notifyDataSetChanged()
 //            verticalWallpapersAdapter.notifyItemRangeInserted(currentItem,totalItem)
 //            verticalWallpapersAdapter.notifyItemRangeChanged()
-            Toast.makeText(this, ""+ hwlViewModel.list.size, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "" + hwlViewModel.list.size, Toast.LENGTH_SHORT).show()
 
             when (it) {
                 null -> {
@@ -83,17 +84,16 @@ class WallpapersActivity : AppCompatActivity() {
         }
 
 
-
     }
 
     private fun setupRecyclerView() {
-        verticalWallpapersAdapter = VerticalWallpapersAdapter(this, hwlViewModel.list){
+        verticalWallpapersAdapter = VerticalWallpapersAdapter(this, hwlViewModel.list) {
             startActivity(Intent(this, FullScreenActivity::class.java).apply {
                 putExtra("wall", it)
             })
         }
 
-        val manager = GridLayoutManager(applicationContext,3)
+        val manager = GridLayoutManager(applicationContext, 3)
 //        binding.recyclerView.edgeEffectFactory = BounceEdgeEffectFactory()
         binding.recyclerView.layoutManager = manager
         binding.recyclerView.adapter = this@WallpapersActivity.verticalWallpapersAdapter
@@ -103,33 +103,33 @@ class WallpapersActivity : AppCompatActivity() {
 
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
-        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-            super.onScrollStateChanged(recyclerView, newState)
-            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
-                isScrolling = true
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                    isScrolling = true
+                }
             }
-        }
 
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            super.onScrolled(recyclerView, dx, dy)
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
 
-            currentItem = manager.childCount
-            totalItem = manager.itemCount
-            scrollOutItem = manager.findFirstVisibleItemPosition()
+                currentItem = manager.childCount
+                totalItem = manager.itemCount
+                scrollOutItem = manager.findFirstVisibleItemPosition()
 
 //            Toast.makeText(this@WallpapersActivity, ""+totalItem, Toast.LENGTH_SHORT).show()
-            if (isScrolling && currentItem + scrollOutItem == totalItem - 3) {
+                if (isScrolling && currentItem + scrollOutItem == totalItem - 3) {
 
-                hwlViewModel.getWallpaper(orderBy, model, model)
-                //fetch data
-                isScrolling = false
+                    hwlViewModel.getWallpaper()
+                    //fetch data
+                    isScrolling = false
+
+
+                }
 
 
             }
-
-
-        }
-    })
+        })
 
 
         /*binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -148,8 +148,6 @@ class WallpapersActivity : AppCompatActivity() {
                 }
             }
         })*/
-
-
 
 
     }
