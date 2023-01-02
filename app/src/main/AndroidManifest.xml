@@ -10,12 +10,16 @@
         android:name=".MainApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Super Wall"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WallpaperApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+<!--        ca-app-pub-2012508283590944~5959784010-->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2012508283590944~5959784010"/>
         <activity
             android:name=".ui.WallpapersActivity"
             android:exported="false"

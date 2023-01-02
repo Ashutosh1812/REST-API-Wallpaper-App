@@ -9,6 +9,7 @@ import com.ashutosh.wallpaperapp.databinding.FragmentHomeBinding
 import com.ashutosh.wallpaperapp.ui.fragments.sub_fragments.HorizontalCategoryListFragment
 import com.ashutosh.wallpaperapp.ui.fragments.sub_fragments.HorizontalColorListFragment
 import com.ashutosh.wallpaperapp.ui.fragments.sub_fragments.HorizontalWallListFragment
+import com.google.android.gms.ads.MobileAds
 
 
 class HomeFragment : Fragment() {

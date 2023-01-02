@@ -1,9 +1,9 @@
 package com.ashutosh.wallpaperapp.ui
 
-import android.R.attr.bitmap
 import android.app.Activity
 import android.app.DownloadManager
 import android.app.WallpaperManager
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -12,6 +12,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import android.view.View
 import android.view.ViewOutlineProvider
 import android.widget.*
@@ -25,11 +26,19 @@ import com.ashutosh.wallpaperapp.databinding.ActivityFullScreenBinding
 import com.ashutosh.wallpaperapp.models.WallpaperModel
 import com.ashutosh.wallpaperapp.repository.WallpapersRepository
 import com.ashutosh.wallpaperapp.viewmodel.FullScreenViewModel
-import com.ashutosh.wallpaperapp.viewmodel.VerticalWallListViewModel
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import dagger.hilt.android.AndroidEntryPoint
 import eightbitlab.com.blurview.BlurView
 import eightbitlab.com.blurview.RenderScriptBlur
@@ -51,11 +60,62 @@ class FullScreenActivity : AppCompatActivity() {
     lateinit var wallpapersRepository: WallpapersRepository
     private val hwlViewModel: FullScreenViewModel by viewModels()
     private lateinit var wallModel: WallpaperModel
+    private var mInterstitialAd: InterstitialAd? = null
+    var adRequest = AdRequest.Builder().build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFullScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        MobileAds.initialize(this) {}
+
+
+
+
+        InterstitialAd.load(
+            this,
+            "ca-app-pub-2012508283590944/4044885353",
+            adRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    adError?.toString()?.let { Log.d(TAG, it) }
+                    mInterstitialAd = null
+                }
+
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    Log.d(TAG, "Ad was loaded.")
+                    mInterstitialAd = interstitialAd
+                }
+
+
+
+            })
+
+        mInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+
+            override fun onAdDismissedFullScreenContent() {
+                // Called when ad is dismissed.
+//                Log.d(TAG, "Ad dismissed fullscreen content.")
+                InterstitialAd.load(this@FullScreenActivity, "ca-app-pub-2012508283590944/4044885353", adRequest, object : InterstitialAdLoadCallback() {
+                    override fun onAdFailedToLoad(adError: LoadAdError) {
+                        adError?.toString()?.let { Log.d(TAG, it) }
+                        mInterstitialAd = null
+                    }
+
+                    override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                        Log.d(TAG, "Ad was loaded.")
+                        mInterstitialAd = interstitialAd
+                    }
+
+
+
+                })
+            }
+
+
+        }
+
+
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
@@ -74,8 +134,10 @@ class FullScreenActivity : AppCompatActivity() {
             updateUI()
         } else
             fetchWallpaper(data!!)
+//        binding.progressBar.visibility = View.GONE
 
-        hwlViewModel.wallModel.observe(this){
+
+        hwlViewModel.wallModel.observe(this) {
             it?.let {
                 wallModel = it
                 updateUI()
@@ -99,7 +161,9 @@ class FullScreenActivity : AppCompatActivity() {
 
     private fun showDialog() {
         binding.moreButton.setOnClickListener {
-
+            if (mInterstitialAd != null) {
+                mInterstitialAd?.show(this)
+            }
             val builder = AlertDialog.Builder(this, R.style.CustomAlertDialog)
                 .create()
             val view = layoutInflater.inflate(R.layout.more_dialog_layout, null)
@@ -153,8 +217,10 @@ class FullScreenActivity : AppCompatActivity() {
 
 
     private fun backButton() {
-
         binding.backButton.setOnClickListener {
+            if (mInterstitialAd != null) {
+                mInterstitialAd?.show(this)
+            }
             finish()
         }
 
@@ -184,8 +250,31 @@ class FullScreenActivity : AppCompatActivity() {
 
     private fun updateUI() {
 
+        Glide.with(this).load(wallModel.urls.full).listener(
+            object : RequestListener<Drawable> {
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: com.bumptech.glide.request.target.Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    binding.progressBar.visibility = View.GONE
+                    return false
+                }
 
-        Glide.with(this).load(wallModel.urls.full).into(binding.imageView)
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: com.bumptech.glide.request.target.Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    binding.progressBar.visibility = View.GONE
+                    return false
+                }
+            }
+        ).into(binding.imageView)
+//
 
 
         updateFavButton(wallModel.isFav)
@@ -229,6 +318,9 @@ class FullScreenActivity : AppCompatActivity() {
 
         builder.setView(view)
         binding.setWallpaperButton.setOnClickListener {
+            if (mInterstitialAd != null) {
+                mInterstitialAd?.show(this)
+            }
 //            fullScreenViewModel.setWall(this,binding.imageView,binding.progressBar)
             val wallpaperManager = WallpaperManager.getInstance(this)
             binding.imageView.isDrawingCacheEnabled = true
@@ -260,7 +352,7 @@ class FullScreenActivity : AppCompatActivity() {
 
             lockButton.setOnClickListener {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    CoroutineScope(Dispatchers.IO).launch {
+                    CoroutineScope(Dispatchers.Default).launch {
                         wallpaperManager.setBitmap(
                             bitmap,
                             null,
@@ -308,11 +400,11 @@ class FullScreenActivity : AppCompatActivity() {
 
             builder.setCanceledOnTouchOutside(true)
             builder.show()
-            //            progressBar.visibility = View.VISIBLE
 
 
         }
     }
+
     fun Activity.applyBlurView(blurView: BlurView, radius: Float) {
         val decorView: View = window.decorView
         val windowBackground: Drawable = decorView.background

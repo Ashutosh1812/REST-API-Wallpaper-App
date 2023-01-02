@@ -6,13 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".ui.FullScreenActivity">
 
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
-
-
 
 
     <ImageButton
@@ -29,14 +28,14 @@
     <ImageButton
         android:id="@+id/backButton"
         android:layout_width="46dp"
-        android:layout_marginTop="50dp"
         android:layout_height="46dp"
         android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/bg_item_card"
         android:src="@drawable/arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/textPrimary"/>
+        app:tint="@color/textPrimary" />
 
     <ImageButton
         android:id="@+id/favButton"
@@ -73,4 +72,16 @@
         app:layout_constraintBottom_toBottomOf="@id/favButton"
         app:layout_constraintEnd_toEndOf="@+id/moreButton"
         app:tint="@color/textPrimary" />
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

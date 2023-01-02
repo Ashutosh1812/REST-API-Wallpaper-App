@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/half_gap"
+
         android:layout_marginRight="@dimen/half_gap"
         android:layout_marginTop="@dimen/half_gap"
         android:background="@drawable/bg_dull_card">

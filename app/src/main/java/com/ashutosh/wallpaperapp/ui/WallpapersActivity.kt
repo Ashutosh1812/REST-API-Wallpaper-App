@@ -16,6 +16,8 @@ import com.ashutosh.wallpaperapp.adapter.VerticalWallpapersAdapter
 import com.ashutosh.wallpaperapp.databinding.ActivityWallpapersBinding
 import com.ashutosh.wallpaperapp.utils.BounceEdgeEffectFactory
 import com.ashutosh.wallpaperapp.viewmodel.VerticalWallListViewModel
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,6 +39,11 @@ class WallpapersActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityWallpapersBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        MobileAds.initialize(this)
+
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
+
         model = intent.getStringExtra("wall")
         binding.toolbar.setNavigationOnClickListener{
             finish()

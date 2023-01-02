@@ -15,6 +15,7 @@ import com.ashutosh.wallpaperapp.databinding.ActivityMainBinding
 import com.ashutosh.wallpaperapp.ui.fragments.CategoryFragment
 import com.ashutosh.wallpaperapp.ui.fragments.FavoritesFragment
 import com.ashutosh.wallpaperapp.ui.fragments.HomeFragment
+import com.google.android.gms.ads.MobileAds
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         fragement = HomeFragment()
