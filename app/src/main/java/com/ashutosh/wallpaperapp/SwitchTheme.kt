@@ -26,6 +26,7 @@ class SwitchTheme @Inject constructor(@ApplicationContext private val context: C
 
 
     private fun getTheme() = sharedPref.getInt("mode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+//    private fun getTheme() = sharedPref.getInt("mode", AppCompatDelegate.MODE_NIGHT_YES)
     private fun saveTheme(mode:Int){
         sharedPref.edit().putInt("mode", mode).apply()
     }

@@ -7,17 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="textPrimary">#111111</color>
+    <color name="textPrimary">#000000</color>
     <color name="textSecondary">#444444</color>
-    <color name="backgroundSecondary">#444444</color>
+    <color name="backgroundSecondary">#ffffff</color>
     <color name="textTertiary">#707070</color>
-
+    <color name="bottomNavBarColor">#ffffff</color>
 
     <color name="colorPrimary">#ffffff</color>
     <color name="colorSecondary">#bbcccccc</color>
     <color name="colorTertiary">#bbcccccc</color>
-
-
     <color name="btnColorPrimary">#e0e0e0</color>
     <color name="btnTextColorPrimary">#111111</color>
 
@@ -33,7 +31,7 @@
 
     <color name="status_bar">#e0e0e0</color>
     <color name="navigation_bar">#222222</color>
-    ]
+
     <color name="bg_dull">#222222</color>
 
 </resources>

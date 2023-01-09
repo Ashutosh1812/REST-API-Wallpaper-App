@@ -46,6 +46,12 @@ class FavoritesFragment : Fragment() {
 
         setupRecyclerView()
         fetchWallpapers()
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.filterList()
     }
 
     private fun fetchWallpapers() {
@@ -63,8 +69,8 @@ class FavoritesFragment : Fragment() {
 //                    binding.progressBar.visibility = View.VISIBLE
                 }
                 false -> {
-                    Log.d("TAG", "fun: ${viewModel.list}")
                     verticalWallpapersAdapter.notifyDataSetChanged()
+                    Log.d("TAG", "funjghjhgjhj: ${viewModel.list}")
 //                    verticalWallpapersAdapter.notifyItemRangeInserted(currentItem ,totalItem)
 
 //                    binding.progressBar.visibility = View.GONE
@@ -78,7 +84,6 @@ class FavoritesFragment : Fragment() {
 
 
     }
-
 
 
     private fun setupRecyclerView() {

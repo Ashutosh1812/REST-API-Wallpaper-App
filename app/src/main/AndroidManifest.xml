@@ -19,7 +19,7 @@
 <!--        ca-app-pub-2012508283590944~5959784010-->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-2012508283590944~5959784010"/>
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
         <activity
             android:name=".ui.WallpapersActivity"
             android:exported="false"
