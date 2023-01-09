@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cnb_unselectedColor="#888888">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/home"
         android:icon="@drawable/ic_home"
@@ -22,6 +21,7 @@
     <item
         android:id="@+id/settings"
         android:icon="@drawable/ic_setting"
+        android:iconTint="@color/cardview_dark_background"
         android:title="Settings"
         app:cnb_iconColor="@android:color/white" />
 </menu>

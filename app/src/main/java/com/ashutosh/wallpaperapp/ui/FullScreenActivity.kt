@@ -24,7 +24,6 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.ashutosh.wallpaperapp.R
 import com.ashutosh.wallpaperapp.databinding.ActivityFullScreenBinding
 import com.ashutosh.wallpaperapp.models.WallpaperModel
-import com.ashutosh.wallpaperapp.repository.WallpapersRepository
 import com.ashutosh.wallpaperapp.viewmodel.FullScreenViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -34,7 +33,6 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.interstitial.InterstitialAd
@@ -47,8 +45,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.*
-import javax.inject.Inject
 import kotlin.math.roundToInt
 
 
@@ -56,7 +52,7 @@ import kotlin.math.roundToInt
 class FullScreenActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFullScreenBinding
 
-    private val hwlViewModel: FullScreenViewModel by viewModels()
+    private val viewModel: FullScreenViewModel by viewModels()
     private lateinit var wallModel: WallpaperModel
     private var mInterstitialAd: InterstitialAd? = null
     var adRequest = AdRequest.Builder().build()
@@ -111,7 +107,7 @@ class FullScreenActivity : AppCompatActivity() {
 
 
 
-        hwlViewModel.wallModel.observe(this) {
+        viewModel.wallModel.observe(this) {
             it?.let {
                 wallModel = it
                 updateUI()
@@ -129,7 +125,7 @@ class FullScreenActivity : AppCompatActivity() {
     }
 
     private fun fetchWallpaper(data: Uri) {
-        hwlViewModel.loadSharedWall(data)
+        viewModel.loadSharedWall(data)
     }
 
 
@@ -250,7 +246,7 @@ class FullScreenActivity : AppCompatActivity() {
         ).into(binding.imageView)
 //
 
-        hwlViewModel.isFav.observe(this){
+        viewModel.isFav.observe(this){
             binding.favButton.setImageResource(
                 if (it)
                     R.drawable.ic_baseline_favorite_24
@@ -258,13 +254,13 @@ class FullScreenActivity : AppCompatActivity() {
                     R.drawable.ic_baseline_favorite_border_24
             )
         }
-        hwlViewModel.isFav(wallModel.wallId)
+        viewModel.isFav(wallModel.wallId)
 
         binding.favButton.setOnClickListener {
-            if (hwlViewModel.isFav.value == true){
-                hwlViewModel.removeToFav(wallModel.wallId)
+            if (viewModel.isFav.value == true){
+                viewModel.removeToFav(wallModel.wallId)
             } else {
-                hwlViewModel.addToFav(wallModel.wallId)
+                viewModel.addToFav(wallModel.wallId)
             }
 
         }

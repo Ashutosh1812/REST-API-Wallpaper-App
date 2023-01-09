@@ -33,7 +33,7 @@
         android:background="@drawable/bg_item_card"
         android:onClick="showPopUp"
         android:src="@drawable/ic_more_btn"
-        app:tint="@color/textPrimary"  />
+        app:tint="@color/textPrimary" />
 
     <FrameLayout
         android:id="@+id/frame_layout"
@@ -43,7 +43,16 @@
         android:layout_below="@id/toolbar"
         tools:ignore="MissingConstraints" />
 
-    <com.ismaeldivita.chipnavigation.ChipNavigationBar
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/menu_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_menu" />
+
+<!--    <com.ismaeldivita.chipnavigation.ChipNavigationBar
+        android:visibility="gone"
         android:id="@+id/menu_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,7 +61,7 @@
         android:elevation="16dp"
         android:padding="8dp"
         app:cnb_menuResource="@menu/bottom_menu"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent" />-->
 
 
 </RelativeLayout>

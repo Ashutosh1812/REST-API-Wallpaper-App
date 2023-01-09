@@ -1,6 +1,6 @@
 package com.ashutosh.wallpaperapp.ui
 
-import android.content.res.Resources
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -15,7 +15,7 @@ import com.ashutosh.wallpaperapp.databinding.ActivityMainBinding
 import com.ashutosh.wallpaperapp.ui.fragments.CategoryFragment
 import com.ashutosh.wallpaperapp.ui.fragments.FavoritesFragment
 import com.ashutosh.wallpaperapp.ui.fragments.HomeFragment
-import com.google.android.gms.ads.MobileAds
+import com.ashutosh.wallpaperapp.ui.fragments.UserProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         fragement = HomeFragment()
@@ -37,14 +36,30 @@ class MainActivity : AppCompatActivity() {
 
         setupFragments()
     }
-
+    private fun setCurrentFragment(fragment:Fragment)=
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frame_layout,fragment)
+            commit()
+        }
 
     private fun setupFragments() {
 
+        setCurrentFragment(fragement!!)
+
+        binding.menuBottom.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.home->setCurrentFragment(fragement!!)
+                R.id.category->setCurrentFragment(CategoryFragment())
+                R.id.favorites->setCurrentFragment(FavoritesFragment())
+                R.id.settings->setCurrentFragment(UserProfileFragment())
+
+            }
+            true
+        }
+
+    }
         /*val adapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
         binding.viewPager2.adapter = adapter
-
-
         TabLayoutMediator(binding.tabLayout, binding.viewPager2){tab,position->
             when(position){
                 0-> tab.text = "Home"
@@ -53,7 +68,8 @@ class MainActivity : AppCompatActivity() {
             }
 
         }.attach()*/
-        val resources: Resources = this.resources
+
+/*        val resources: Resources = this.resources
         val resourceId: Int = resources.getIdentifier("navigation_bar_height", "dimen", "android")
 
         binding.menuBottom.setItemSelected(R.id.home)
@@ -79,16 +95,16 @@ class MainActivity : AppCompatActivity() {
                     binding.menuButton.visibility = View.GONE
 
                 }
-                R.id.settings -> {
+                *//*R.id.settings -> {
                     switchFragment(CategoryFragment())
                     binding.toolbarTitle.text = "Profile"
                     binding.menuButton.visibility = View.GONE
 
-                }
+                }*//*
             }
 
-        }
-    }
+        }*/
+
 
     private fun switchFragment(f: Fragment?) {
         f?.let {
